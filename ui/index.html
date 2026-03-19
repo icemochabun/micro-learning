@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LearnNow — Micro-learning Platform</title>
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       APP HEADER (hidden on login screen, shown after login)
+       ============================================================ -->
+  <header class="app-header app-header--hidden" id="app-header" role="banner">
+    <span class="app-header__logo">LearnNow</span>
+    <div class="app-header__right">
+      <span class="app-header__role-chip" id="header-role-chip"></span>
+      <button class="app-header__logout" onclick="logout()" aria-label="Log out">×</button>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       PHONE FRAME WRAPPER
+       ============================================================ -->
+  <div class="phone-frame">
+
+    <!-- ==========================================================
+         LOGIN SCREEN
+         ========================================================== -->
+    <div id="login-screen" class="login-screen">
+      <div class="login-hero">
+        <p class="login-hero__eyebrow">Micro-learning Platform</p>
+        <h1 class="login-hero__title">LearnNow</h1>
+        <p class="login-hero__sub">Choose your role to get started</p>
+      </div>
+      <div class="login-cards" role="list">
+
+        <button class="login-role-card login-role-card--staff" onclick="login('staff')" role="listitem">
+          <span class="login-role-card__dot login-role-card__dot--staff"></span>
+          <span class="login-role-card__info">
+            <span class="login-role-card__name">Care Staff</span>
+            <span class="login-role-card__tagline">Nurul · AAC Care Assistant</span>
+          </span>
+          <span class="login-role-card__arrow" aria-hidden="true">→</span>
+        </button>
+
+        <button class="login-role-card login-role-card--seniors" onclick="login('seniors')" role="listitem">
+          <span class="login-role-card__dot login-role-card__dot--seniors"></span>
+          <span class="login-role-card__info">
+            <span class="login-role-card__name">Senior Learner</span>
+            <span class="login-role-card__tagline">Mr Muthu · AAC member, age 74</span>
+          </span>
+          <span class="login-role-card__arrow" aria-hidden="true">→</span>
+        </button>
+
+        <button class="login-role-card login-role-card--volunteers" onclick="login('volunteers')" role="listitem">
+          <span class="login-role-card__dot login-role-card__dot--volunteers"></span>
+          <span class="login-role-card__info">
+            <span class="login-role-card__name">Volunteer</span>
+            <span class="login-role-card__tagline">Jamie · Befriending volunteer, age 28</span>
+          </span>
+          <span class="login-role-card__arrow" aria-hidden="true">→</span>
+        </button>
+
+      </div>
+    </div><!-- /login-screen -->
+
+
+    <!-- ==========================================================
+         CARE STAFF VIEW
+         ========================================================== -->
+    <div id="view-staff" class="role-view role-view--hidden">
+
+      <!-- DASHBOARD -->
+      <div id="staff-dashboard" class="dash-screen">
+        <div class="dash-greeting">
+          <p class="dash-greeting__hello">Good morning, Nurul 👋</p>
+          <div class="dash-progress staff-streak">
+            <div class="staff-streak__left">
+              <span class="staff-streak__fire">🔥</span>
+              <span class="staff-streak__count">4-day streak</span>
+            </div>
+            <div class="staff-streak__right">
+              <div class="staff-streak__bar-wrap" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" aria-label="1 of 3 modules this week">
+                <div class="staff-streak__bar-fill"></div>
+              </div>
+              <span class="staff-streak__label">1 of 3 this week</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-modules">
+          <h2 class="dash-modules__heading">Your modules</h2>
+
+          <button class="module-card module-card--scenario" onclick="launchModule('staff','scenario')">
+            <span class="module-card__badge module-card__badge--scenario">Scenario · 3 min</span>
+            <span class="module-card__title">Delirium Signs</span>
+            <span class="module-card__desc">Recognise 3 early signs before they escalate</span>
+            <span class="module-card__cta">Start →</span>
+          </button>
+
+          <button class="module-card module-card--quiz" onclick="launchModule('staff','quiz')">
+            <span class="module-card__badge module-card__badge--quiz">Quick Quiz · 2 min</span>
+            <span class="module-card__title">Falls Prevention</span>
+            <span class="module-card__desc">3 questions on reducing resident fall risk</span>
+            <span class="module-card__cta">Start →</span>
+          </button>
+
+          <button class="module-card module-card--reference" onclick="launchModule('staff','reference')">
+            <span class="module-card__badge module-card__badge--reference">Reference · 1 min</span>
+            <span class="module-card__title">PPE Protocol</span>
+            <span class="module-card__desc">Quick-reference — donning, gloves, common mistakes</span>
+            <span class="module-card__cta">Start →</span>
+          </button>
+        </div>
+      </div><!-- /staff-dashboard -->
+
+
+      <!-- PLAYER -->
+      <div id="staff-player" class="player-screen player-screen--hidden">
+        <div class="player-header">
+          <button class="player-back" onclick="backToDashboard('staff')">← Dashboard</button>
+          <div class="player-bar" role="progressbar" aria-label="Module progress">
+            <div class="player-bar__fill" id="staff-bar-fill"></div>
+          </div>
+        </div>
+
+        <!-- - - FORMAT: SCENARIO - - -->
+        <div class="format-section format-scenario" id="staff-scenario">
+
+          <div class="player-sub" id="staff-s-hook">
+            <p class="player-format-tag">Scenario · 3 min</p>
+            <p class="player-phase-label">HOOK · 30 SEC</p>
+            <h2 class="player-hook-heading">Mr Tan, 82, was his usual cheerful self at breakfast. By lunch he doesn't recognise his daughter.</h2>
+            <p class="player-body-text">This is delirium — an acute, sudden change in awareness and cognition. Most staff miss the early signs. You won't, after this module.</p>
+            <div class="player-callout">⏱ This module takes about 3 minutes. One idea. One skill. One quiz.</div>
+            <button class="btn btn--primary" onclick="scenarioNext(1)">Continue →</button>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="staff-s-core">
+            <p class="player-format-tag">Scenario · 3 min</p>
+            <p class="player-phase-label">CORE · 90 SEC</p>
+            <h2 class="player-section-heading">3 early signs of delirium</h2>
+            <ol class="player-numbered-list">
+              <li><strong>Sudden confusion</strong> — disoriented to time or place out of nowhere</li>
+              <li><strong>Unusual quietness</strong> — withdrawn, not responding as usual</li>
+              <li><strong>Agitation</strong> — restless, picking at clothing, calling out repeatedly</li>
+            </ol>
+            <div class="player-callout">Key word: <strong>sudden</strong>. Delirium is acute — gradual memory loss is different.</div>
+            <button class="btn btn--primary" onclick="scenarioNext(2)">Continue →</button>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="staff-s-quiz">
+            <p class="player-format-tag">Scenario · 3 min</p>
+            <p class="player-phase-label">RETRIEVAL · 60 SEC</p>
+            <p class="player-question">Mrs Lim, 79, is unusually quiet after lunch. She ate well this morning. What do you do?</p>
+            <div class="quiz-options" id="staff-scenario-options">
+              <button class="quiz-option" onclick="staffScenarioAnswer(this, false)">Wait and monitor — she may just be tired</button>
+              <button class="quiz-option" onclick="staffScenarioAnswer(this, true)">Report immediately — sudden change is a red flag</button>
+              <button class="quiz-option" onclick="staffScenarioAnswer(this, false)">Wake her up to confirm she's okay</button>
+            </div>
+            <p class="quiz-feedback" id="staff-scenario-feedback"></p>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="staff-s-anchor">
+            <p class="player-format-tag">Scenario · 3 min</p>
+            <p class="player-phase-label">ANCHOR · 15 SEC</p>
+            <h2 class="player-section-heading">Any sudden change. Report it.</h2>
+            <p class="player-body-text">Your observation is the first line of protection. When in doubt — report. Early intervention reduces complications.</p>
+            <div class="player-callout">Your one action: next handover, explicitly mention any resident who seems different from their baseline.</div>
+            <button class="btn btn--primary" onclick="showDone('staff', 'Module complete', 'You can now recognise delirium\'s 3 early signs.')">Done →</button>
+          </div>
+
+        </div><!-- /format-scenario -->
+
+
+        <!-- - - FORMAT: QUICK QUIZ - - -->
+        <div class="format-section format-section--hidden" id="staff-quiz">
+
+          <div class="player-sub" id="staff-q-q1">
+            <p class="player-format-tag">Quick Quiz · 2 min</p>
+            <p class="quiz-counter">Question 1 of 3</p>
+            <p class="player-question">Which of these most increases fall risk for a resident?</p>
+            <div class="quiz-options" id="staff-quiz-q1-options">
+              <button class="quiz-option" onclick="staffQuizAnswer(this, false, 'q1')">Poor appetite at meals</button>
+              <button class="quiz-option" onclick="staffQuizAnswer(this, true, 'q1')">Ill-fitting footwear or loose slippers</button>
+              <button class="quiz-option" onclick="staffQuizAnswer(this, false, 'q1')">Loud environment during activities</button>
+            </div>
+            <p class="quiz-feedback" id="staff-quiz-q1-feedback"></p>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="staff-q-q2">
+            <p class="player-format-tag">Quick Quiz · 2 min</p>
+            <p class="quiz-counter">Question 2 of 3</p>
+            <p class="player-question">A resident is unsteady when standing. Your first action:</p>
+            <div class="quiz-options" id="staff-quiz-q2-options">
+              <button class="quiz-option" onclick="staffQuizAnswer(this, false, 'q2')">Help them sit back down and check on them later</button>
+              <button class="quiz-option" onclick="staffQuizAnswer(this, true, 'q2')">Stay with them and call for assistance immediately</button>
+              <button class="quiz-option" onclick="staffQuizAnswer(this, false, 'q2')">Give them a walking frame and observe from nearby</button>
+            </div>
+            <p class="quiz-feedback" id="staff-quiz-q2-feedback"></p>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="staff-q-q3">
+            <p class="player-format-tag">Quick Quiz · 2 min</p>
+            <p class="quiz-counter">Question 3 of 3</p>
+            <p class="player-question">High-risk residents should be repositioned at least every:</p>
+            <div class="quiz-options" id="staff-quiz-q3-options">
+              <button class="quiz-option" onclick="staffQuizAnswer(this, false, 'q3')">4 hours</button>
+              <button class="quiz-option" onclick="staffQuizAnswer(this, true, 'q3')">2 hours</button>
+              <button class="quiz-option" onclick="staffQuizAnswer(this, false, 'q3')">6 hours</button>
+            </div>
+            <p class="quiz-feedback" id="staff-quiz-q3-feedback"></p>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="staff-q-score">
+            <p class="player-format-tag">Quick Quiz · 2 min</p>
+            <div class="quiz-score-card">
+              <div class="quiz-score-card__badge" id="staff-quiz-score-badge">3 / 3</div>
+              <p class="quiz-score-card__label">Falls Prevention</p>
+            </div>
+            <p class="player-body-text" id="staff-quiz-score-msg">Excellent — all correct.</p>
+            <button class="btn btn--primary" onclick="showDone('staff', 'Quiz complete', '')">Continue →</button>
+          </div>
+
+        </div><!-- /staff-quiz -->
+
+
+        <!-- - - FORMAT: REFERENCE CARD - - -->
+        <div class="format-section format-section--hidden" id="staff-reference">
+
+          <div class="player-sub" id="staff-r-c1">
+            <p class="player-format-tag">Reference · 1 min</p>
+            <div class="ref-card">
+              <p class="ref-card__num">1 of 3</p>
+              <h3 class="ref-card__heading">Donning sequence</h3>
+              <ol class="ref-card__body">
+                <li>Hand hygiene</li>
+                <li>Gown (tie at back)</li>
+                <li>Mask or respirator</li>
+                <li>Eye protection</li>
+                <li>Gloves (over gown cuffs)</li>
+              </ol>
+            </div>
+            <button class="btn btn--primary" onclick="staffRefNext()">Next card →</button>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="staff-r-c2">
+            <p class="player-format-tag">Reference · 1 min</p>
+            <div class="ref-card">
+              <p class="ref-card__num">2 of 3</p>
+              <h3 class="ref-card__heading">When to change gloves</h3>
+              <ul class="ref-card__body">
+                <li>Between residents — always</li>
+                <li>After contact with body fluids</li>
+                <li>When torn or visibly soiled</li>
+                <li>Before touching clean surfaces</li>
+              </ul>
+            </div>
+            <button class="btn btn--primary" onclick="staffRefNext()">Next card →</button>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="staff-r-c3">
+            <p class="player-format-tag">Reference · 1 min</p>
+            <div class="ref-card">
+              <p class="ref-card__num">3 of 3</p>
+              <h3 class="ref-card__heading">Common mistakes to avoid</h3>
+              <ul class="ref-card__body">
+                <li>Touching face with gloved hands</li>
+                <li>Reusing single-use gloves</li>
+                <li>Skipping hand hygiene after doffing</li>
+                <li>Wearing the same mask all shift</li>
+              </ul>
+            </div>
+            <button class="btn btn--primary" onclick="showDone('staff', 'Reference complete', 'Card saved to your library.')">Done →</button>
+          </div>
+
+        </div><!-- /staff-reference -->
+
+      </div><!-- /staff-player -->
+
+
+      <!-- COMPLETION -->
+      <div id="staff-done" class="done-screen done-screen--hidden">
+        <div class="done-badge done-badge--staff">✓</div>
+        <h2 class="done-title" id="staff-done-title">Module complete</h2>
+        <p class="done-msg" id="staff-done-msg"></p>
+        <div class="done-teaser">
+          <p class="done-teaser__label">📆 Day 7 review arrives <strong id="staff-day7-date"></strong></p>
+          <p class="done-teaser__lock">🔒 Retrieval at the right moment locks this in</p>
+        </div>
+        <button class="btn btn--ghost" onclick="backToDashboard('staff')">← Back to dashboard</button>
+      </div>
+
+    </div><!-- /view-staff -->
+
+
+    <!-- ==========================================================
+         SENIORS VIEW
+         ========================================================== -->
+    <div id="view-seniors" class="role-view role-view--hidden">
+
+      <!-- DASHBOARD -->
+      <div id="seniors-dashboard" class="dash-screen">
+        <div class="dash-greeting">
+          <p class="dash-greeting__hello dash-greeting__hello--seniors">Good morning, Mr Muthu 👋</p>
+          <div class="dash-progress seniors-milestones" aria-label="Your learning journey">
+            <div class="seniors-milestone seniors-milestone--done">
+              <div class="seniors-milestone__dot seniors-milestone__dot--done">✓</div>
+              <div class="seniors-milestone__label">Week 1<br><small>Learn</small></div>
+            </div>
+            <div class="seniors-milestone__line"></div>
+            <div class="seniors-milestone">
+              <div class="seniors-milestone__dot">W2</div>
+              <div class="seniors-milestone__label">Week 2<br><small>Reinforce</small></div>
+            </div>
+            <div class="seniors-milestone__line"></div>
+            <div class="seniors-milestone">
+              <div class="seniors-milestone__dot">M1</div>
+              <div class="seniors-milestone__label">Month 1<br><small>Confirm</small></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-modules">
+          <h2 class="dash-modules__heading dash-modules__heading--seniors">Your sessions</h2>
+
+          <button class="module-card module-card--wizard" onclick="launchModule('seniors','wizard')">
+            <span class="module-card__badge module-card__badge--wizard">Wizard · 2 min</span>
+            <span class="module-card__title module-card__title--seniors">Staying Hydrated</span>
+            <span class="module-card__desc module-card__desc--seniors">Simple steps to drink enough water each day</span>
+            <span class="module-card__cta">Start →</span>
+          </button>
+
+          <button class="module-card module-card--quiz" onclick="launchModule('seniors','quiz')">
+            <span class="module-card__badge module-card__badge--quiz">Quiz · 2 min</span>
+            <span class="module-card__title module-card__title--seniors">My Medications</span>
+            <span class="module-card__desc module-card__desc--seniors">Two quick questions about taking medicines safely</span>
+            <span class="module-card__cta">Start →</span>
+          </button>
+
+          <button class="module-card module-card--infographic" onclick="launchModule('seniors','infographic')">
+            <span class="module-card__badge module-card__badge--infographic">Tips · 1 min</span>
+            <span class="module-card__title module-card__title--seniors">Daily Movement</span>
+            <span class="module-card__desc module-card__desc--seniors">Three easy movements you can do at home</span>
+            <span class="module-card__cta">Start →</span>
+          </button>
+        </div>
+      </div><!-- /seniors-dashboard -->
+
+
+      <!-- PLAYER -->
+      <div id="seniors-player" class="player-screen player-screen--hidden">
+        <div class="player-header">
+          <button class="player-back" onclick="backToDashboard('seniors')">← Dashboard</button>
+          <div class="player-bar" role="progressbar" aria-label="Module progress">
+            <div class="player-bar__fill" id="seniors-bar-fill"></div>
+          </div>
+        </div>
+
+        <!-- - - FORMAT: WIZARD - - -->
+        <div class="format-section format-wizard" id="seniors-wizard">
+
+          <div class="player-sub" id="seniors-w-step1">
+            <p class="player-format-tag">Wizard · 2 min</p>
+            <div class="seniors-hero-emoji" aria-hidden="true">💧</div>
+            <h2 class="player-section-heading player-section-heading--seniors">Staying hydrated keeps your energy up</h2>
+            <p class="player-body-text player-body-text--seniors">Water helps your body work well. It keeps your joints moving and your mind sharp — even a little dehydration can make you feel tired or confused.</p>
+            <div class="player-callout">⏱ About 2 minutes. One tip. One question.</div>
+            <button class="btn btn--seniors-primary" onclick="wizardNext(1)">Next →</button>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="seniors-w-step2">
+            <p class="player-format-tag">Wizard · 2 min</p>
+            <h2 class="player-section-heading player-section-heading--seniors">Aim for 6 glasses of water a day</h2>
+            <p class="player-body-text player-body-text--seniors">One glass when you wake up, one with each meal, one in the afternoon, one before bed. A water bottle nearby helps a lot.</p>
+            <p class="seniors-quiz-label">Do you usually keep water nearby during the day?</p>
+            <div class="seniors-yesno">
+              <button class="btn btn--seniors-primary" id="seniors-yes" onclick="seniorsWizardAnswer(this, 'yes')">Yes</button>
+              <button class="btn btn--seniors-outline" id="seniors-no" onclick="seniorsWizardAnswer(this, 'no')">Not yet</button>
+            </div>
+            <p class="quiz-feedback" id="seniors-wizard-feedback"></p>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="seniors-w-step3">
+            <p class="player-format-tag">Wizard · 2 min</p>
+            <div class="seniors-hero-emoji" aria-hidden="true">✅</div>
+            <h2 class="player-section-heading player-section-heading--seniors">One glass at a time is enough.</h2>
+            <p class="player-body-text player-body-text--seniors">You don't have to change everything. Start with one extra glass tomorrow morning.</p>
+            <button class="btn btn--seniors-primary" onclick="showDone('seniors', 'Session complete', 'Well done, Mr Muthu. One small step counts.')">Done →</button>
+          </div>
+
+        </div><!-- /seniors-wizard -->
+
+
+        <!-- - - FORMAT: QUIZ (seniors) - - -->
+        <div class="format-section format-section--hidden" id="seniors-quiz">
+
+          <div class="player-sub" id="seniors-q-q1">
+            <p class="player-format-tag">Quiz · 2 min</p>
+            <p class="quiz-counter quiz-counter--seniors">Question 1 of 2</p>
+            <p class="player-question player-question--seniors">Is it safe to take most medicines with food?</p>
+            <div class="quiz-options seniors-quiz-options" id="seniors-quiz-q1-options">
+              <button class="quiz-option quiz-option--seniors" onclick="seniorsQuizAnswer(this, true, 'q1')">Yes — food usually makes it easier on the stomach</button>
+              <button class="quiz-option quiz-option--seniors" onclick="seniorsQuizAnswer(this, false, 'q1')">No — food always stops medicine from working</button>
+            </div>
+            <p class="quiz-feedback" id="seniors-quiz-q1-feedback"></p>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="seniors-q-q2">
+            <p class="player-format-tag">Quiz · 2 min</p>
+            <p class="quiz-counter quiz-counter--seniors">Question 2 of 2</p>
+            <p class="player-question player-question--seniors">If you forget a dose, you should:</p>
+            <div class="quiz-options seniors-quiz-options" id="seniors-quiz-q2-options">
+              <button class="quiz-option quiz-option--seniors" onclick="seniorsQuizAnswer(this, false, 'q2')">Take two doses at once to make up for it</button>
+              <button class="quiz-option quiz-option--seniors" onclick="seniorsQuizAnswer(this, true, 'q2')">Take it when you remember, then continue as normal</button>
+            </div>
+            <p class="quiz-feedback" id="seniors-quiz-q2-feedback"></p>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="seniors-q-score">
+            <p class="player-format-tag">Quiz · 2 min</p>
+            <div class="seniors-hero-emoji" aria-hidden="true">🌟</div>
+            <h2 class="player-section-heading player-section-heading--seniors">Well done, Mr Muthu!</h2>
+            <p class="player-body-text player-body-text--seniors">You know how to take your medicines safely. If you're ever unsure, the AAC nurse is always happy to help.</p>
+            <button class="btn btn--seniors-primary" onclick="showDone('seniors', 'Quiz complete', 'You answered both questions correctly.')">Continue →</button>
+          </div>
+
+        </div><!-- /seniors-quiz -->
+
+
+        <!-- - - FORMAT: INFOGRAPHIC (tip cards) - - -->
+        <div class="format-section format-section--hidden" id="seniors-infographic">
+
+          <div class="player-sub" id="seniors-i-tip1">
+            <p class="player-format-tag">Tips · 1 min</p>
+            <p class="quiz-counter quiz-counter--seniors">Tip 1 of 3</p>
+            <div class="info-tip">
+              <div class="info-tip__emoji" aria-hidden="true">🧍</div>
+              <p class="info-tip__text">Stand up once every hour</p>
+              <p class="info-tip__detail">Even just standing for 30 seconds gets your blood moving.</p>
+            </div>
+            <button class="btn btn--seniors-primary" onclick="seniorsInfoNext()">Next tip →</button>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="seniors-i-tip2">
+            <p class="player-format-tag">Tips · 1 min</p>
+            <p class="quiz-counter quiz-counter--seniors">Tip 2 of 3</p>
+            <div class="info-tip">
+              <div class="info-tip__emoji" aria-hidden="true">🚶</div>
+              <p class="info-tip__text">Walk to the letterbox and back</p>
+              <p class="info-tip__detail">A short walk once a day keeps your legs strong.</p>
+            </div>
+            <button class="btn btn--seniors-primary" onclick="seniorsInfoNext()">Next tip →</button>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="seniors-i-tip3">
+            <p class="player-format-tag">Tips · 1 min</p>
+            <p class="quiz-counter quiz-counter--seniors">Tip 3 of 3</p>
+            <div class="info-tip">
+              <div class="info-tip__emoji" aria-hidden="true">🙆</div>
+              <p class="info-tip__text">Stretch your arms above your head</p>
+              <p class="info-tip__detail">Do this while sitting — it opens your chest and helps your breathing.</p>
+            </div>
+            <button class="btn btn--seniors-primary" onclick="showDone('seniors', 'Tips complete', 'Try one of these movements tomorrow morning.')">Done →</button>
+          </div>
+
+        </div><!-- /seniors-infographic -->
+
+      </div><!-- /seniors-player -->
+
+
+      <!-- COMPLETION -->
+      <div id="seniors-done" class="done-screen done-screen--hidden">
+        <div class="done-badge done-badge--seniors">✓</div>
+        <h2 class="done-title done-title--seniors" id="seniors-done-title">Session complete</h2>
+        <p class="done-msg done-msg--seniors" id="seniors-done-msg"></p>
+        <div class="done-teaser done-teaser--seniors">
+          <p class="done-teaser__label">Your next session arrives in 2 weeks</p>
+          <p class="done-teaser__lock">See you then, Mr Muthu 😊</p>
+        </div>
+        <button class="btn btn--seniors-outline" onclick="backToDashboard('seniors')">← Back to sessions</button>
+      </div>
+
+    </div><!-- /view-seniors -->
+
+
+    <!-- ==========================================================
+         VOLUNTEERS VIEW
+         ========================================================== -->
+    <div id="view-volunteers" class="role-view role-view--hidden">
+
+      <!-- DASHBOARD -->
+      <div id="vol-dashboard" class="dash-screen">
+        <div class="dash-greeting">
+          <p class="dash-greeting__hello">Good morning, Jamie 👋</p>
+          <div class="dash-progress vol-phases" aria-label="Onboarding phases">
+            <div class="vol-phase vol-phase--done">
+              <div class="vol-phase__dot vol-phase__dot--done">✓</div>
+              <div class="vol-phase__label">Phase 1<br><small>Admin</small></div>
+            </div>
+            <div class="vol-phase__line vol-phase__line--done"></div>
+            <div class="vol-phase vol-phase--active">
+              <div class="vol-phase__dot vol-phase__dot--active">2</div>
+              <div class="vol-phase__label">Phase 2<br><small>Culture</small></div>
+            </div>
+            <div class="vol-phase__line"></div>
+            <div class="vol-phase">
+              <div class="vol-phase__dot">3</div>
+              <div class="vol-phase__label">Phase 3<br><small>Task</small></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-modules">
+          <h2 class="dash-modules__heading">Your modules</h2>
+
+          <button class="module-card module-card--culture" onclick="launchModule('volunteers','culture')">
+            <span class="module-card__badge module-card__badge--culture">Culture · 3 min</span>
+            <span class="module-card__title">Our Mission</span>
+            <span class="module-card__desc">Why showing up matters — your impact in numbers</span>
+            <span class="module-card__cta">Start →</span>
+          </button>
+
+          <button class="module-card module-card--branching" onclick="launchModule('volunteers','branching')">
+            <span class="module-card__badge module-card__badge--branching">Branching · 4 min</span>
+            <span class="module-card__title">Your First Visit</span>
+            <span class="module-card__desc">A scenario — two paths, one real skill</span>
+            <span class="module-card__cta">Start →</span>
+          </button>
+
+          <button class="module-card module-card--reference" onclick="launchModule('volunteers','reference')">
+            <span class="module-card__badge module-card__badge--reference">Reference · 1 min</span>
+            <span class="module-card__title">Quick Reference</span>
+            <span class="module-card__desc">3 cards for before, during, and if you're unsure</span>
+            <span class="module-card__cta">Start →</span>
+          </button>
+        </div>
+      </div><!-- /vol-dashboard -->
+
+
+      <!-- PLAYER -->
+      <div id="vol-player" class="player-screen player-screen--hidden">
+        <div class="player-header">
+          <button class="player-back" onclick="backToDashboard('volunteers')">← Dashboard</button>
+          <div class="player-bar" role="progressbar" aria-label="Module progress">
+            <div class="player-bar__fill" id="vol-bar-fill"></div>
+          </div>
+        </div>
+
+        <!-- - - FORMAT: CULTURE/STORY - - -->
+        <div class="format-section format-culture" id="vol-culture">
+
+          <div class="player-sub" id="vol-c-impact">
+            <p class="player-format-tag">Culture · 3 min</p>
+            <div class="vol-impact-stat">
+              <div class="vol-impact-stat__number">12</div>
+              <div class="vol-impact-stat__label">seniors made a new friend last month through this programme</div>
+            </div>
+            <p class="player-body-text">Every name on that list has a befriender — someone who showed up. This module explains why showing up matters, and what we stand for as an organisation.</p>
+            <div class="player-callout">⏱ About 3 minutes. An impact story. A reflection.</div>
+            <button class="btn btn--vol-primary" onclick="cultureNext(1)">Continue →</button>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="vol-c-mission">
+            <p class="player-format-tag">Culture · 3 min</p>
+            <blockquote class="vol-mission-quote">
+              "We believe no senior should feel like a stranger in their own neighbourhood. Every visit — even a short one — breaks the cycle of isolation."
+            </blockquote>
+            <p class="player-body-text">Befriending isn't just about conversation. It's about consistency. The seniors who benefit most are the ones whose befrienders come back.</p>
+            <button class="btn btn--vol-primary" onclick="cultureNext(2)">Continue →</button>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="vol-c-reflect">
+            <p class="player-format-tag">Culture · 3 min</p>
+            <p class="player-phase-label">REFLECTION</p>
+            <p class="player-question">Think of someone who showed up consistently for you. What did that feel like?</p>
+            <div class="quiz-options" id="vol-culture-options">
+              <button class="quiz-option" onclick="volCultureAnswer(this, 'safe')">It made me feel safe and valued</button>
+              <button class="quiz-option" onclick="volCultureAnswer(this, 'supported')">I felt less alone — someone cared</button>
+              <button class="quiz-option" onclick="volCultureAnswer(this, 'motivated')">It motivated me to keep going</button>
+            </div>
+            <p class="quiz-feedback" id="vol-culture-feedback"></p>
+          </div>
+
+        </div><!-- /vol-culture -->
+
+
+        <!-- - - FORMAT: BRANCHING SCENARIO - - -->
+        <div class="format-section format-section--hidden" id="vol-branching">
+
+          <div class="player-sub" id="vol-b-setup">
+            <p class="player-format-tag">Branching · 4 min</p>
+            <p class="player-phase-label">SCENARIO</p>
+            <div class="branch-story">
+              <p class="branch-story__text">Mrs Lee, 78, opens the door when you arrive. She doesn't make eye contact. She steps aside to let you in — but doesn't say anything.</p>
+            </div>
+            <p class="player-body-text">You've met her once before during orientation. What do you do?</p>
+            <div class="branch-choices">
+              <button class="branch-choice" onclick="branchChoose('a')">
+                <span class="branch-choice__label">Path A</span>
+                Ask "Is everything okay? You seem quiet today."
+              </button>
+              <button class="branch-choice" onclick="branchChoose('b')">
+                <span class="branch-choice__label">Path B</span>
+                Give a warm greeting and wait — let her set the pace
+              </button>
+            </div>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="vol-b-consequence-a">
+            <p class="player-format-tag">Branching · 4 min</p>
+            <p class="player-phase-label">CONSEQUENCE — PATH A</p>
+            <div class="branch-consequence branch-consequence--amber">
+              <p>Mrs Lee stiffens slightly. "I'm fine," she says, and looks away. The visit feels stilted — she answers in single words for most of the hour.</p>
+            </div>
+            <p class="player-body-text">Asking about emotions too soon — before trust is built — can feel intrusive. She needed a moment to settle first.</p>
+            <button class="btn btn--vol-primary" onclick="branchNext()">See what works instead →</button>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="vol-b-consequence-b">
+            <p class="player-format-tag">Branching · 4 min</p>
+            <p class="player-phase-label">CONSEQUENCE — PATH B</p>
+            <div class="branch-consequence branch-consequence--green">
+              <p>"Good morning, Mrs Lee — lovely to see you again." You wait. After a moment, she smiles. "Come, sit. I made some tea."</p>
+            </div>
+            <p class="player-body-text">A warm, unhurried greeting gave her time to feel safe. Patience is the skill.</p>
+            <button class="btn btn--vol-primary" onclick="branchNext()">Continue →</button>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="vol-b-resolution">
+            <p class="player-format-tag">Branching · 4 min</p>
+            <p class="player-phase-label">ANCHOR</p>
+            <h2 class="player-section-heading">Let them set the pace.</h2>
+            <p class="player-body-text">Your job on arrival is to create safety — not to diagnose the mood. Seniors who feel unhurried open up naturally.</p>
+            <div class="player-callout">Your one action: when you arrive next time, give a warm greeting then wait quietly for 5 seconds before saying anything else.</div>
+            <button class="btn btn--vol-primary" onclick="showDone('volunteers', 'Scenario complete', 'You\'ve learned the most important arrival skill.')">Done →</button>
+          </div>
+
+        </div><!-- /vol-branching -->
+
+
+        <!-- - - FORMAT: REFERENCE CARD (volunteers) - - -->
+        <div class="format-section format-section--hidden" id="vol-reference">
+
+          <div class="player-sub" id="vol-r-c1">
+            <p class="player-format-tag">Reference · 1 min</p>
+            <div class="ref-card">
+              <p class="ref-card__num">1 of 3</p>
+              <h3 class="ref-card__heading">Before you arrive</h3>
+              <ul class="ref-card__body">
+                <li>Call ahead to confirm the visit</li>
+                <li>Know the senior's name and use it</li>
+                <li>Read any notes from your last visit</li>
+                <li>Arrive on time — they're expecting you</li>
+              </ul>
+            </div>
+            <button class="btn btn--vol-primary" onclick="volRefNext()">Next card →</button>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="vol-r-c2">
+            <p class="player-format-tag">Reference · 1 min</p>
+            <div class="ref-card">
+              <p class="ref-card__num">2 of 3</p>
+              <h3 class="ref-card__heading">When you arrive</h3>
+              <ul class="ref-card__body">
+                <li>Warm greeting — use their name</li>
+                <li>No rush — let them set the pace</li>
+                <li>Follow their lead on conversation topics</li>
+                <li>Switch off your phone (or silence it)</li>
+              </ul>
+            </div>
+            <button class="btn btn--vol-primary" onclick="volRefNext()">Next card →</button>
+          </div>
+
+          <div class="player-sub player-sub--hidden" id="vol-r-c3">
+            <p class="player-format-tag">Reference · 1 min</p>
+            <div class="ref-card">
+              <p class="ref-card__num">3 of 3</p>
+              <h3 class="ref-card__heading">If you're unsure</h3>
+              <ul class="ref-card__body">
+                <li>Don't guess — ask your coordinator</li>
+                <li>Medical concerns: refer to staff, don't advise</li>
+                <li>If a senior seems distressed, stay calm and contact the AAC</li>
+                <li>You don't have to handle everything alone</li>
+              </ul>
+            </div>
+            <button class="btn btn--vol-primary" onclick="showDone('volunteers', 'Reference complete', 'Card saved. Review before your next placement.')">Done →</button>
+          </div>
+
+        </div><!-- /vol-reference -->
+
+      </div><!-- /vol-player -->
+
+
+      <!-- COMPLETION -->
+      <div id="vol-done" class="done-screen done-screen--hidden">
+        <div class="done-badge done-badge--volunteers">✓</div>
+        <h2 class="done-title" id="vol-done-title">Module complete</h2>
+        <p class="done-msg" id="vol-done-msg"></p>
+        <div class="done-teaser">
+          <p class="done-teaser__label">📆 Monthly update arrives <strong id="vol-day7-date"></strong></p>
+          <p class="done-teaser__lock">A 2-minute scenario to keep you ready between placements</p>
+        </div>
+        <button class="btn btn--ghost" onclick="backToDashboard('volunteers')">← Back to dashboard</button>
+      </div>
+
+    </div><!-- /view-volunteers -->
+
+  </div><!-- /phone-frame -->
+
+  <script src="main.js"></script>
+</body>
+</html>

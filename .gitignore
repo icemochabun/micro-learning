@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V2
+.Trashes
+
+# Local dev tooling (not needed for hosted site)
+.claude/
+
+# Research PDFs (large files, available locally)
+docs/*.pdf

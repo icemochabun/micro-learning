@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Micro-learning — User Journeys</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- === 3-PAGE NAV === -->
+  <nav class="page-nav" role="navigation" aria-label="Guide pages">
+    <div class="page-nav__inner">
+      <span class="page-nav__logo">Micro-learning</span>
+      <ol class="page-nav__steps" role="list">
+        <li class="page-nav__step">
+          <a href="index.html" class="page-nav__link">
+            <span class="page-nav__num">1</span>
+            <span class="page-nav__label">Understand</span>
+          </a>
+        </li>
+        <li class="page-nav__sep" aria-hidden="true">→</li>
+        <li class="page-nav__step page-nav__step--active" aria-current="page">
+          <a href="journeys.html" class="page-nav__link">
+            <span class="page-nav__num">2</span>
+            <span class="page-nav__label">Journeys</span>
+          </a>
+        </li>
+        <li class="page-nav__sep" aria-hidden="true">→</li>
+        <li class="page-nav__step">
+          <a href="experience.html" class="page-nav__link">
+            <span class="page-nav__num">3</span>
+            <span class="page-nav__label">Try it</span>
+          </a>
+        </li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- === JOURNEY HERO === -->
+    <section class="journey-hero" aria-labelledby="journey-hero-heading">
+      <div class="container">
+        <p class="journey-hero__eyebrow">Page 2 of 3 — Journeys</p>
+        <h1 class="journey-hero__heading" id="journey-hero-heading">A week in the life of each learner</h1>
+        <p class="journey-hero__sub">Three audiences, one programme. Toggle between them to see how the experience differs — from first touchpoint to lasting habit.</p>
+      </div>
+    </section>
+
+    <!-- === JOURNEY TOGGLE === -->
+    <section class="journey-main" aria-label="User journeys by audience">
+      <div class="container">
+
+        <!-- Tab switcher -->
+        <div class="journey-tabs" role="tablist" aria-label="Select an audience">
+          <button class="journey-tab journey-tab--staff journey-tab--active"
+                  role="tab" aria-selected="true" aria-controls="journey-staff" id="tab-staff">
+            Care Staff
+          </button>
+          <button class="journey-tab journey-tab--seniors"
+                  role="tab" aria-selected="false" aria-controls="journey-seniors" id="tab-seniors">
+            Senior Learners
+          </button>
+          <button class="journey-tab journey-tab--volunteers"
+                  role="tab" aria-selected="false" aria-controls="journey-volunteers" id="tab-volunteers">
+            Volunteers
+          </button>
+        </div>
+
+        <!-- ============================================================
+             CARE STAFF PANEL
+             ============================================================ -->
+        <div class="journey-panel" id="journey-staff" role="tabpanel" aria-labelledby="tab-staff">
+
+          <!-- Intro: persona + problem -->
+          <div class="journey-panel__intro">
+            <p class="journey-panel__persona">Nurul · AAC Care Assistant · Phone is her only screen</p>
+            <blockquote class="journey-problem">
+              "Nurul's last dementia communication training was 8 months ago — a 3-hour classroom session. She remembers almost none of it. A resident became distressed last week and she wasn't sure what to do."
+            </blockquote>
+          </div>
+
+          <!-- Module preview -->
+          <div class="journey-module-preview">
+            <div class="journey-module-preview__bar"></div>
+            <div class="journey-module-preview__content">
+              <span class="journey-module-preview__tag">Scenario · 3 min · WhatsApp</span>
+              <strong>When a resident calls out repeatedly and becomes agitated, your first step is…</strong>
+            </div>
+          </div>
+
+          <!-- Spaced repetition schedule strip -->
+          <div class="sr-strip" aria-label="Spaced repetition schedule: Day 0, Day 7, Day 30">
+            <div class="sr-step sr-step--filled">
+              <div class="sr-step__dot" aria-label="Day 0 — initial learning">✓</div>
+              <div class="sr-step__day">Day 0</div>
+              <div class="sr-step__label">Learn</div>
+            </div>
+            <div class="sr-step">
+              <div class="sr-step__dot">7</div>
+              <div class="sr-step__day">Day 7</div>
+              <div class="sr-step__label">Reinforce</div>
+            </div>
+            <div class="sr-step">
+              <div class="sr-step__dot">30</div>
+              <div class="sr-step__day">Day 30</div>
+              <div class="sr-step__label">Confirm</div>
+            </div>
+          </div>
+
+          <!-- Timeline -->
+          <ol class="journey-timeline" aria-label="Care staff learning journey">
+
+            <li class="journey-step">
+              <div class="journey-step__marker journey-step__marker--staff">1</div>
+              <div class="journey-step__content">
+                <div class="journey-step__meta">
+                  <span class="journey-step__day">Day 0 · Mon 7:45 am</span>
+                  <span class="journey-step__channel journey-step__channel--whatsapp">WhatsApp</span>
+                </div>
+                <h3 class="journey-step__title">Module arrives before the shift starts</h3>
+                <p class="journey-step__desc">Nurul receives a WhatsApp link: <em>"Delirium: 3 Early Signs — 3 min."</em> She taps it in the canteen queue. One scenario, one decision, immediate feedback.</p>
+                <span class="journey-step__duration">3 min</span>
+                <span class="step-format">Scenario · 3 min · Template A</span>
+              </div>
+            </li>
+
+            <li class="journey-step">
+              <div class="journey-step__marker journey-step__marker--staff">2</div>
+              <div class="journey-step__content">
+                <div class="journey-step__meta">
+                  <span class="journey-step__day">Day 0 · During shift</span>
+                  <span class="journey-step__channel journey-step__channel--floor">Care floor</span>
+                </div>
+                <h3 class="journey-step__title">Knowledge applied immediately</h3>
+                <p class="journey-step__desc">A resident seems confused and restless. Nurul recognises the pattern from the scenario — sudden onset, not the usual dementia behaviour. She escalates to the nurse. The resident is assessed within 20 minutes.</p>
+                <span class="journey-step__duration">Real impact</span>
+              </div>
+            </li>
+
+            <li class="journey-step">
+              <div class="journey-step__marker journey-step__marker--staff">3</div>
+              <div class="journey-step__content">
+                <div class="journey-step__meta">
+                  <span class="journey-step__day">Day 7</span>
+                  <span class="journey-step__channel journey-step__channel--whatsapp">WhatsApp</span>
+                </div>
+                <h3 class="journey-step__title">Reinforcement — same concept, new scenario</h3>
+                <p class="journey-step__desc">A second WhatsApp link arrives: the same delirium criteria, applied to a different resident situation. Memory just started to fade — this retrieval locks it in again. 2 minutes, done.</p>
+                <span class="journey-step__duration">2 min</span>
+                <span class="step-format">Quiz · 2 min · Spaced review</span>
+              </div>
+            </li>
+
+            <li class="journey-step">
+              <div class="journey-step__marker journey-step__marker--staff">4</div>
+              <div class="journey-step__content">
+                <div class="journey-step__meta">
+                  <span class="journey-step__day">Day 30</span>
+                  <span class="journey-step__channel journey-step__channel--whatsapp">WhatsApp</span>
+                </div>
+                <h3 class="journey-step__title">Confirmation — retrieval from memory only</h3>
+                <p class="journey-step__desc">One quiz question: no hints, no re-reading first. Nurul answers from memory. This final retrieval moment moves the knowledge from short-term recall to long-term practice.</p>
+                <span class="journey-step__duration">2 min</span>
+                <span class="step-format">Micro-quiz · 2 min · Final recall</span>
+              </div>
+            </li>
+
+            <li class="journey-step journey-step--outcome">
+              <div class="journey-step__marker journey-step__marker--outcome">✓</div>
+              <div class="journey-step__content">
+                <div class="journey-step__meta">
+                  <span class="journey-step__day">Ongoing</span>
+                  <span class="journey-step__channel journey-step__channel--habit">Habit formed</span>
+                </div>
+                <h3 class="journey-step__title">Delirium is no longer easy to miss</h3>
+                <p class="journey-step__desc">Nurul has seen the scenario three times over 30 days. The criteria are automatic. She knows exactly when to escalate — without looking it up. Total learning time: <strong>7 minutes</strong>.</p>
+              </div>
+            </li>
+
+          </ol>
+
+          <!-- Day 7 preview callout -->
+          <div class="day7-preview" aria-label="What the Day 7 spaced review looks like">
+            <div class="day7-preview__header">
+              <span>📆</span>
+              <span class="day7-preview__title">What arrives at Day 7 — Nurul's spaced review</span>
+            </div>
+            <div class="day7-preview__body">
+              <p class="day7-preview__sub">A new WhatsApp link: same concept, different resident scenario. Memory is just starting to fade — active retrieval at this exact moment strengthens the neural pathway.</p>
+              <div class="day7-module-chip">
+                <span class="day7-module-chip__left">Delirium: Spot the Difference · Quiz · 2 min</span>
+                <span class="day7-module-chip__right">Day 7 →</span>
+              </div>
+            </div>
+          </div>
+
+          <a href="https://mededu.jmir.org/2023/1/e45177" target="_blank" rel="noopener" class="journey-source">
+            Source: JMIR Medical Education 2023 — Digital Microlearning for Older Adult Care Personnel →
+          </a>
+
+        </div>
+
+        <!-- ============================================================
+             SENIOR LEARNERS PANEL
+             ============================================================ -->
+        <div class="journey-panel journey-panel--hidden" id="journey-seniors" role="tabpanel" aria-labelledby="tab-seniors">
+
+          <div class="journey-panel__intro">
+            <p class="journey-panel__persona">Mr Muthu · AAC member, age 74 · Takes 4 medications daily</p>
+            <blockquote class="journey-problem">
+              "Mr Muthu misses doses because he forgets which pill is which. His daughter is worried. The AAC nurse explained it once, but the pamphlet she gave him is in a drawer somewhere."
+            </blockquote>
+          </div>
+
+          <div class="journey-module-preview">
+            <div class="journey-module-preview__bar journey-module-preview__bar--seniors"></div>
+            <div class="journey-module-preview__content">
+              <span class="journey-module-preview__tag">Health · 4 min · Tablet (facilitated)</span>
+              <strong>This is your morning pill. It helps your blood stay clean.</strong>
+            </div>
+          </div>
+
+          <!-- Spaced repetition schedule strip -->
+          <div class="sr-strip" aria-label="Spaced repetition schedule: Week 1, Week 2, Month 1">
+            <div class="sr-step sr-step--filled-seniors">
+              <div class="sr-step__dot" aria-label="Week 1 — initial learning">✓</div>
+              <div class="sr-step__day">Week 1</div>
+              <div class="sr-step__label">Learn</div>
+            </div>
+            <div class="sr-step">
+              <div class="sr-step__dot">W2</div>
+              <div class="sr-step__day">Week 2</div>
+              <div class="sr-step__label">Reinforce</div>
+            </div>
+            <div class="sr-step">
+              <div class="sr-step__dot">M1</div>
+              <div class="sr-step__day">Month 1</div>
+              <div class="sr-step__label">Confirm</div>
+            </div>
+          </div>
+
+          <ol class="journey-timeline" aria-label="Senior learner journey">
+
+            <li class="journey-step">
+              <div class="journey-step__marker journey-step__marker--seniors">1</div>
+              <div class="journey-step__content">
+                <div class="journey-step__meta">
+                  <span class="journey-step__day">Week 1 · At the AAC</span>
+                  <span class="journey-step__channel journey-step__channel--tablet">Tablet · Facilitated</span>
+                </div>
+                <h3 class="journey-step__title">First session with a staff member beside him</h3>
+                <p class="journey-step__desc">An AAC staff member opens the module on a shared tablet: <em>"Staying Hydrated."</em> Large text, one idea per screen, a single yes/no question at the end. He taps Next at his own pace.</p>
+                <span class="journey-step__duration">4 min</span>
+                <span class="step-format">Wizard · 4 min · Template C</span>
+              </div>
+            </li>
+
+            <li class="journey-step">
+              <div class="journey-step__marker journey-step__marker--seniors">2</div>
+              <div class="journey-step__content">
+                <div class="journey-step__meta">
+                  <span class="journey-step__day">Week 1 · At home</span>
+                  <span class="journey-step__channel journey-step__channel--whatsapp">WhatsApp (family)</span>
+                </div>
+                <h3 class="journey-step__title">A gentle reminder through a familiar channel</h3>
+                <p class="journey-step__desc">His daughter receives a WhatsApp message from the AAC: <em>"Did Dad drink 6 glasses today?"</em> No app to install. No login required. The learning lives in the family conversation.</p>
+                <span class="journey-step__duration">30 sec</span>
+                <span class="step-format">Nudge · 30 sec · Spaced reminder</span>
+              </div>
+            </li>
+
+            <li class="journey-step">
+              <div class="journey-step__marker journey-step__marker--seniors">3</div>
+              <div class="journey-step__content">
+                <div class="journey-step__meta">
+                  <span class="journey-step__day">Week 2 · Next AAC visit</span>
+                  <span class="journey-step__channel journey-step__channel--tablet">Tablet · Solo</span>
+                </div>
+                <h3 class="journey-step__title">Follow-up screen — he navigates it alone</h3>
+                <p class="journey-step__desc">A short follow-up: one practical tip linked to his own routine. <em>"You take your morning pill with water — that counts as your first glass."</em> He taps through without help this time.</p>
+                <span class="journey-step__duration">3 min</span>
+                <span class="step-format">Wizard · 3 min · Spaced review</span>
+              </div>
+            </li>
+
+            <li class="journey-step">
+              <div class="journey-step__marker journey-step__marker--seniors">4</div>
+              <div class="journey-step__content">
+                <div class="journey-step__meta">
+                  <span class="journey-step__day">Month 1</span>
+                  <span class="journey-step__channel journey-step__channel--floor">Staff check-in</span>
+                </div>
+                <h3 class="journey-step__title">One question from a staff member</h3>
+                <p class="journey-step__desc"><em>"Mr Muthu, how many glasses of water did you have yesterday?"</em> He answers. One minute of conversation becomes the Month 1 retrieval moment.</p>
+                <span class="journey-step__duration">1 min</span>
+                <span class="step-format">Verbal check · 1 min · Final recall</span>
+              </div>
+            </li>
+
+            <li class="journey-step journey-step--outcome">
+              <div class="journey-step__marker journey-step__marker--outcome">✓</div>
+              <div class="journey-step__content">
+                <div class="journey-step__meta">
+                  <span class="journey-step__day">Ongoing</span>
+                  <span class="journey-step__channel journey-step__channel--habit">Habit formed</span>
+                </div>
+                <h3 class="journey-step__title">He manages this himself now</h3>
+                <p class="journey-step__desc">Mr Muthu connects hydration to his existing pill routine. His daughter stops reminding him. He mentions it to his friend at the AAC. The module took <strong>8 minutes total</strong> — the habit is permanent.</p>
+              </div>
+            </li>
+
+          </ol>
+
+          <!-- Week 2 preview callout -->
+          <div class="day7-preview day7-preview--seniors" aria-label="What the Week 2 reinforcement looks like">
+            <div class="day7-preview__header">
+              <span>📆</span>
+              <span class="day7-preview__title">What arrives at Week 2 — Mr Muthu's reinforcement</span>
+            </div>
+            <div class="day7-preview__body">
+              <p class="day7-preview__sub">A brief follow-up screen on the shared AAC tablet. Same topic, one new practical tip tied to his daily routine. He navigates it solo this time — no facilitation needed.</p>
+              <div class="day7-module-chip">
+                <span class="day7-module-chip__left">Staying Hydrated: Your daily routine · Wizard · 3 min</span>
+                <span class="day7-module-chip__right">Week 2 →</span>
+              </div>
+            </div>
+          </div>
+
+          <a href="https://www.nature.com/articles/s41598-025-29769-7" target="_blank" rel="noopener" class="journey-source">
+            Source: Scientific Reports RCT 2025 — Microlearning-based education on medication adherence in the elderly →
+          </a>
+
+        </div>
+
+        <!-- ============================================================
+             VOLUNTEERS PANEL
+             ============================================================ -->
+        <div class="journey-panel journey-panel--hidden" id="journey-volunteers" role="tabpanel" aria-labelledby="tab-volunteers">
+
+          <div class="journey-panel__intro">
+            <p class="journey-panel__persona">Jamie · Befriending volunteer, age 28 · Works full-time · Signed up online</p>
+            <blockquote class="journey-problem">
+              "After registering, Jamie hears nothing for 3 weeks, then receives a 40-page volunteer handbook and an invitation to a 2-hour Saturday orientation. He never shows up. The organisation counts this as a dropout."
+            </blockquote>
+          </div>
+
+          <div class="journey-module-preview">
+            <div class="journey-module-preview__bar journey-module-preview__bar--volunteers"></div>
+            <div class="journey-module-preview__content">
+              <span class="journey-module-preview__tag">Culture · 4 min · Email link</span>
+              <strong>Meet Ahmad and his befriender, Susan. Their Thursday calls started with one question.</strong>
+            </div>
+          </div>
+
+          <!-- Phase labels strip for volunteers (not SR days — phases are the progression) -->
+          <div class="sr-strip" aria-label="Volunteer onboarding phases: Admin, Culture, Task">
+            <div class="sr-step sr-step--filled-volunteers">
+              <div class="sr-step__dot" aria-label="Phase 1 — Admin complete">✓</div>
+              <div class="sr-step__day">Phase 1</div>
+              <div class="sr-step__label">Admin</div>
+            </div>
+            <div class="sr-step">
+              <div class="sr-step__dot">2</div>
+              <div class="sr-step__day">Phase 2</div>
+              <div class="sr-step__label">Culture</div>
+            </div>
+            <div class="sr-step">
+              <div class="sr-step__dot">3</div>
+              <div class="sr-step__day">Phase 3</div>
+              <div class="sr-step__label">Task</div>
+            </div>
+          </div>
+
+          <ol class="journey-timeline" aria-label="Volunteer learning journey">
+
+            <li class="journey-step">
+              <div class="journey-step__marker journey-step__marker--volunteers">1</div>
+              <div class="journey-step__content">
+                <div class="journey-step__meta">
+                  <span class="journey-step__day">Day 1 · After sign-up</span>
+                  <span class="journey-step__channel journey-step__channel--email">Email link</span>
+                </div>
+                <span class="phase-label">Phase 1 — Admin</span>
+                <h3 class="journey-step__title">Not a handbook — a 5-minute orientation</h3>
+                <p class="journey-step__desc">A welcome email with a single link. Five-minute module: role overview, one policy, one safety note. Every item connected to a reason — <em>"This waiver keeps the programme running for 100 more seniors."</em> No 40-page PDF.</p>
+                <span class="journey-step__duration">5 min</span>
+                <span class="step-format">Info · 5 min · Template B</span>
+              </div>
+            </li>
+
+            <li class="journey-step">
+              <div class="journey-step__marker journey-step__marker--volunteers">2</div>
+              <div class="journey-step__content">
+                <div class="journey-step__meta">
+                  <span class="journey-step__day">Day 4</span>
+                  <span class="journey-step__channel journey-step__channel--email">Email link</span>
+                </div>
+                <span class="phase-label">Phase 2 — Culture</span>
+                <h3 class="journey-step__title">Why this matters — an impact story</h3>
+                <p class="journey-step__desc">A short impact story: Ahmad, 79, and his befriender Susan. Their Thursday calls started with one question. A 4-minute video. No quiz — just a reflection prompt. Jamie finishes it on his lunch break.</p>
+                <span class="journey-step__duration">5 min</span>
+                <span class="step-format">Scenario · 4 min · Template B</span>
+              </div>
+            </li>
+
+            <li class="journey-step">
+              <div class="journey-step__marker journey-step__marker--volunteers">3</div>
+              <div class="journey-step__content">
+                <div class="journey-step__meta">
+                  <span class="journey-step__day">Day 10</span>
+                  <span class="journey-step__channel journey-step__channel--email">Email link</span>
+                </div>
+                <span class="phase-label">Phase 3 — Task</span>
+                <h3 class="journey-step__title">The hard scenario first</h3>
+                <p class="journey-step__desc">A branching scenario: the first visit, a senior who doesn't want to talk. Three response options. Jamie makes a choice, sees the consequence, tries another path. He arrives at his first placement knowing what to do if it goes quiet.</p>
+                <span class="journey-step__duration">7 min</span>
+                <span class="step-format">Branching scenario · 7 min · Template B</span>
+              </div>
+            </li>
+
+            <li class="journey-step">
+              <div class="journey-step__marker journey-step__marker--volunteers">4</div>
+              <div class="journey-step__content">
+                <div class="journey-step__meta">
+                  <span class="journey-step__day">First placement day</span>
+                  <span class="journey-step__channel journey-step__channel--email">Notification</span>
+                </div>
+                <h3 class="journey-step__title">A one-tap quick-reference card</h3>
+                <p class="journey-step__desc">A push notification on the morning of his visit: <em>"You're ready. Here's your quick-ref card."</em> Three bullet points. Arrival → introduction → open question. He screenshots it.</p>
+                <span class="journey-step__duration">1 min</span>
+                <span class="step-format">Quick-ref · 1 min · Just-in-time</span>
+              </div>
+            </li>
+
+            <li class="journey-step journey-step--outcome">
+              <div class="journey-step__marker journey-step__marker--outcome">✓</div>
+              <div class="journey-step__content">
+                <div class="journey-step__meta">
+                  <span class="journey-step__day">Month 1 onwards</span>
+                  <span class="journey-step__channel journey-step__channel--habit">Retained &amp; returning</span>
+                </div>
+                <h3 class="journey-step__title">Jamie comes back — and tells others</h3>
+                <p class="journey-step__desc">He completes his first placement and receives a <em>"Week 1 Complete"</em> badge. Monthly 2-minute micro-updates keep him connected between visits. He books a second placement. Total onboarding time: <strong>18 minutes across 10 days</strong>.</p>
+              </div>
+            </li>
+
+          </ol>
+
+          <!-- Monthly micro-update preview callout -->
+          <div class="day7-preview day7-preview--volunteers" aria-label="What monthly updates look like">
+            <div class="day7-preview__header">
+              <span>🎓</span>
+              <span class="day7-preview__title">What keeps volunteers coming back — monthly micro-updates</span>
+            </div>
+            <div class="day7-preview__body">
+              <p class="day7-preview__sub">After onboarding, a 2-minute email arrives each month — a new scenario, a reflection prompt, or a programme update. No obligation, no login required. Just enough to stay connected and confident.</p>
+              <div class="day7-module-chip">
+                <span class="day7-module-chip__left">Month 2: When a senior seems lonely · Scenario · 2 min</span>
+                <span class="day7-module-chip__right">Monthly →</span>
+              </div>
+            </div>
+          </div>
+
+          <a href="https://www.americorps.gov/sites/default/files/document/Literature%20Review%20for%20Volunteer%20Management_0.pdf" target="_blank" rel="noopener" class="journey-source">
+            Source: AmeriCorps — Engaging Volunteers: Comprehensive Literature Review →
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- === PAGE CTA → experience.html === -->
+    <section class="page-cta" aria-label="Next: try the module">
+      <div class="container">
+        <p class="page-cta__label">Next — Page 3 of 3</p>
+        <h2 class="page-cta__heading">Now experience one yourself</h2>
+        <p class="page-cta__sub">A 2-minute clinical protocol module. One objective. See exactly what your learners will feel.</p>
+        <a href="experience.html" class="btn btn--white btn--large">Try a module →</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- === FOOTER === -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <p class="footer__text">Micro-learning curriculum — Social service &amp; senior care organisations — Phase 1 pilot 2026</p>
+      <p class="footer__text">Based on the Comprehensive Analysis of Micro-learning Architectures (2026)</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

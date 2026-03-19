@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guided Learning — Introduction to Caregiving</title>
+  <link rel="stylesheet" href="style.css?v=2" />
+</head>
+<body>
+<div class="phone-frame">
+
+  <!-- ======================================================
+       SCREEN 1: Learn Home
+       ====================================================== -->
+  <div id="screen-home" class="screen screen--active">
+    <header class="app-header">
+      <h1 class="app-header__title">Learn</h1>
+    </header>
+
+    <div class="screen-body">
+
+      <!-- Today's Lesson card -->
+      <div class="today-card">
+        <span class="streak">🔥 4-day streak</span>
+        <p class="today-card__label">Today's Lesson</p>
+        <h2 class="today-card__title" id="home-lesson-title">Understanding the Role of a Caregiver</h2>
+        <p class="today-card__sub" id="home-lesson-sub">Tips · 3 min</p>
+        <button class="btn--seniors-primary" id="home-start-btn" onclick="startLessonFromHome()">
+          Start today's lesson →
+        </button>
+      </div>
+
+      <!-- Two tiles -->
+      <div class="tiles">
+        <button class="tile" onclick="showScreen('course')">
+          <span class="tile__icon">📖</span>
+          <span class="tile__label">Guided Learning</span>
+        </button>
+        <button class="tile tile--muted" title="Audio Book — coming soon">
+          <span class="tile__icon">🎧</span>
+          <span class="tile__label">Audio Book</span>
+        </button>
+      </div>
+
+    </div>
+  </div><!-- /screen-home -->
+
+
+  <!-- ======================================================
+       SCREEN 2: Guided Learning Course List
+       ====================================================== -->
+  <div id="screen-course" class="screen">
+    <header class="app-header">
+      <button class="back-btn" onclick="showScreen('home')" aria-label="Back to Learn">←</button>
+      <h1 class="app-header__title">Introduction to Caregiving</h1>
+    </header>
+
+    <div class="screen-body">
+
+      <!-- Course progress bar -->
+      <div class="course-progress">
+        <div class="course-progress__bar">
+          <div class="course-progress__fill" id="course-progress-fill" style="width:0%"></div>
+        </div>
+        <p class="course-progress__label" id="course-progress-label">0 of 2 lessons complete</p>
+      </div>
+
+      <!-- Chapter list (populated by JS) -->
+      <ol class="chapter-list" id="chapter-list" aria-label="Course chapters"></ol>
+
+    </div>
+  </div><!-- /screen-course -->
+
+
+  <!-- ======================================================
+       SCREEN 3: Micro-lesson Player
+       ====================================================== -->
+  <div id="screen-player" class="screen">
+
+    <!-- Player header -->
+    <header class="player-header">
+      <button class="back-btn" onclick="exitPlayer()" aria-label="Exit lesson">←</button>
+      <div class="player-header__meta">
+        <span id="player-format-badge">Tips · 3 min</span>
+      </div>
+    </header>
+
+    <!-- Thin progress strip -->
+    <div class="player-progress">
+      <div class="player-progress__fill" id="player-progress-fill"></div>
+    </div>
+
+    <!-- Player body — contains all sub-screens -->
+    <div class="player-body">
+
+      <!-- ---- 3a: HOOK ---- -->
+      <div id="player-hook" class="player-sub player-sub--active">
+        <p class="player-step-label">What you'll learn</p>
+
+        <div class="hook-card">
+          <div class="hook-emoji" id="hook-emoji">🤝</div>
+          <h2 class="hook-heading" id="hook-heading"></h2>
+          <div class="did-you-know">
+            <span class="did-you-know__label">Did you know?</span>
+            <p class="did-you-know__text" id="hook-fact"></p>
+          </div>
+        </div>
+
+        <button class="btn--seniors-primary" onclick="nextStep()">Next →</button>
+      </div><!-- /player-hook -->
+
+
+      <!-- ---- 3b: CORE CARDS ---- -->
+      <div id="player-core" class="player-sub">
+        <div class="card-counter">
+          <span id="card-counter-text">Card 1 of 3</span>
+          <div class="card-dots" id="card-dots" aria-hidden="true"></div>
+        </div>
+
+        <!-- Cards injected here by JS -->
+        <div class="core-cards" id="core-cards-container"></div>
+
+        <button class="btn--seniors-primary" id="core-next-btn">Next card →</button>
+      </div><!-- /player-core -->
+
+
+      <!-- ---- 3c: RETRIEVAL QUIZ ---- -->
+      <div id="player-retrieval" class="player-sub">
+        <p class="player-step-label">Check your learning ✏️</p>
+
+        <h2 class="quiz-question" id="quiz-question"></h2>
+
+        <div class="quiz-options" id="quiz-options" role="group" aria-label="Choose an answer"></div>
+
+        <p class="quiz-feedback" id="quiz-feedback" aria-live="polite"></p>
+
+        <div class="quiz-spacer"></div>
+
+        <button
+          class="btn--seniors-primary"
+          id="quiz-continue-btn"
+          style="display:none"
+          onclick="nextStep()"
+        >Continue →</button>
+      </div><!-- /player-retrieval -->
+
+
+      <!-- ---- 3d: ANCHOR ---- -->
+      <div id="player-anchor" class="player-sub">
+        <p class="player-step-label">Remember this ⭐</p>
+
+        <div class="anchor-card">
+          <div class="anchor-emoji" id="anchor-emoji">⭐</div>
+          <p class="anchor-takeaway" id="anchor-takeaway"></p>
+          <div class="anchor-action">
+            <span class="anchor-action__label">Your one action</span>
+            <p class="anchor-action__text" id="anchor-action"></p>
+          </div>
+        </div>
+
+        <button class="btn--seniors-primary" onclick="showCompletion()">Lesson complete! →</button>
+      </div><!-- /player-anchor -->
+
+    </div><!-- /player-body -->
+  </div><!-- /screen-player -->
+
+
+  <!-- ======================================================
+       SCREEN 4: Completion
+       ====================================================== -->
+  <div id="screen-done" class="screen">
+    <div class="done-screen">
+      <div class="done-badge">✓</div>
+      <h2 class="done-title">Lesson complete!</h2>
+      <p class="done-outcome" id="done-outcome"></p>
+
+      <div class="done-review">
+        <span class="done-review__icon">📅</span>
+        <div>
+          <p class="done-review__headline">Review arrives <strong id="done-review-date"></strong></p>
+          <p class="done-review__sub">A quick check-in to lock this in</p>
+        </div>
+      </div>
+
+      <button class="btn--seniors-outline" id="done-back-btn" onclick="finishLesson()">← Back to course</button>
+    </div>
+  </div><!-- /screen-done -->
+
+</div><!-- /phone-frame -->
+
+<script src="main.js"></script>
+</body>
+</html>

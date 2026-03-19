@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Micro-learning — Try it</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- === 3-PAGE NAV === -->
+  <nav class="page-nav" role="navigation" aria-label="Guide pages">
+    <div class="page-nav__inner">
+      <span class="page-nav__logo">Micro-learning</span>
+      <ol class="page-nav__steps" role="list">
+        <li class="page-nav__step">
+          <a href="index.html" class="page-nav__link">
+            <span class="page-nav__num">1</span>
+            <span class="page-nav__label">Understand</span>
+          </a>
+        </li>
+        <li class="page-nav__sep" aria-hidden="true">→</li>
+        <li class="page-nav__step">
+          <a href="journeys.html" class="page-nav__link">
+            <span class="page-nav__num">2</span>
+            <span class="page-nav__label">Journeys</span>
+          </a>
+        </li>
+        <li class="page-nav__sep" aria-hidden="true">→</li>
+        <li class="page-nav__step page-nav__step--active" aria-current="page">
+          <a href="experience.html" class="page-nav__link">
+            <span class="page-nav__num">3</span>
+            <span class="page-nav__label">Try it</span>
+          </a>
+        </li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- === EXPERIENCE HERO === -->
+  <section class="experience-hero">
+    <div class="container">
+      <p class="experience-hero__eyebrow">Page 3 of 3 — Try it</p>
+      <h1 class="experience-hero__heading">A real micro-module, in 3 minutes</h1>
+      <p class="experience-hero__sub">This is a live sample of the format. Go through it as a learner would — hook, core content, quiz, and anchor.</p>
+    </div>
+  </section>
+
+  <!-- === INTERACTIVE MODULE === -->
+  <section class="experience-module">
+    <div class="container">
+
+      <!-- Module selector -->
+      <div class="module-selector" role="group" aria-label="Choose a module to try">
+        <p class="module-selector__label">Choose a module</p>
+        <button class="module-choice module-choice--active" onclick="loadModule('staff')" aria-pressed="true" aria-label="Care Staff module: Delirium Signs, Scenario, 3 minutes">
+          <span class="module-choice__dot module-choice__dot--staff" aria-hidden="true"></span>
+          <span class="module-choice__info">
+            <span class="module-choice__title">Delirium Signs</span>
+            <span class="module-choice__meta">Care Staff · Scenario · 3 min</span>
+          </span>
+          <span class="module-choice__arrow" aria-hidden="true">→</span>
+        </button>
+        <button class="module-choice" onclick="loadModule('seniors')" aria-pressed="false" aria-label="Seniors module: Staying Hydrated, Wizard, 2 minutes">
+          <span class="module-choice__dot module-choice__dot--seniors" aria-hidden="true"></span>
+          <span class="module-choice__info">
+            <span class="module-choice__title">Staying Hydrated</span>
+            <span class="module-choice__meta">Seniors · Wizard · 2 min</span>
+          </span>
+          <span class="module-choice__arrow" aria-hidden="true">→</span>
+        </button>
+        <button class="module-choice" onclick="loadModule('volunteers')" aria-pressed="false" aria-label="Volunteers module: Our Mission, Culture, 3 minutes">
+          <span class="module-choice__dot module-choice__dot--volunteers" aria-hidden="true"></span>
+          <span class="module-choice__info">
+            <span class="module-choice__title">Our Mission &amp; Values</span>
+            <span class="module-choice__meta">Volunteers · Culture · 3 min</span>
+          </span>
+          <span class="module-choice__arrow" aria-hidden="true">→</span>
+        </button>
+      </div>
+
+      <!-- ======================================
+           MODULE: CARE STAFF — Delirium Signs
+           ====================================== -->
+      <div class="sample-module" id="module-staff" role="region" aria-label="Sample micro-learning module: Recognising Delirium">
+
+        <!-- Screen 1: Hook -->
+        <div class="module-screen" id="screen-1" role="group" aria-label="Screen 1 of 4 — Hook">
+          <div class="module-screen__progress" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="25% complete">
+            <div class="module-screen__progress-bar" style="--progress: 25%;"></div>
+          </div>
+          <p class="module-screen__tag">Hook · 30 sec</p>
+          <h2 class="module-screen__heading">Mr Tan, 82, was his usual cheerful self at breakfast. By lunch he doesn't recognise his daughter.</h2>
+          <p class="module-screen__body">This is delirium — an acute, sudden change in awareness and cognition. It looks like many things. Most staff miss the early signs. You won't, after this module.</p>
+          <div class="module-screen__note">⏱ This module takes about 3 minutes. One idea. One skill. One quiz.</div>
+          <button class="btn btn--primary btn--full" onclick="showScreen(2)" aria-label="Continue to screen 2">
+            Continue →
+          </button>
+        </div>
+
+        <!-- Screen 2: Core content -->
+        <div class="module-screen module-screen--hidden" id="screen-2" role="group" aria-label="Screen 2 of 4 — Core">
+          <div class="module-screen__progress" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="50% complete">
+            <div class="module-screen__progress-bar" style="--progress: 50%;"></div>
+          </div>
+          <p class="module-screen__tag">Core · 90 sec</p>
+          <h2 class="module-screen__heading">Three signs that signal delirium</h2>
+          <p class="module-screen__body">Delirium comes on fast — hours or days, not weeks. Look for changes from the person's baseline:</p>
+          <ol class="sign-list" aria-label="Three signs of delirium">
+            <li class="sign-item">
+              <span class="sign-item__number" aria-hidden="true">1</span>
+              <div class="sign-item__content">
+                <strong>Sudden confusion or disorientation</strong> — can't say where they are, what day it is, or who people are. Onset within hours.
+              </div>
+            </li>
+            <li class="sign-item">
+              <span class="sign-item__number" aria-hidden="true">2</span>
+              <div class="sign-item__content">
+                <strong>Fluctuating alertness</strong> — lucid one moment, drowsy or agitated the next. Worse in the afternoon or evening ("sundowning").
+              </div>
+            </li>
+            <li class="sign-item">
+              <span class="sign-item__number" aria-hidden="true">3</span>
+              <div class="sign-item__content">
+                <strong>Unusual behaviour</strong> — suddenly withdrawn, calling out, picking at clothes, refusing food when they normally eat well.
+              </div>
+            </li>
+          </ol>
+          <div class="module-screen__note">📋 Delirium is a medical emergency. It is reversible if caught early — infections, medication, dehydration are common causes.</div>
+          <button class="btn btn--primary btn--full" onclick="showScreen(3)" aria-label="Continue to quiz">
+            Take the quick quiz →
+          </button>
+        </div>
+
+        <!-- Screen 3: Quiz (retrieval) -->
+        <div class="module-screen module-screen--hidden" id="screen-3" role="group" aria-label="Screen 3 of 4 — Quiz">
+          <div class="module-screen__progress" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="75% complete">
+            <div class="module-screen__progress-bar" style="--progress: 75%;"></div>
+          </div>
+          <p class="module-screen__tag">Retrieval · 60 sec</p>
+          <h2 class="module-screen__heading">Mrs Lim, 78, has been quieter than usual since morning. What should you do?</h2>
+
+          <div class="quiz-options" id="quiz-options" role="group" aria-label="Quiz answer options">
+            <button
+              class="quiz-option"
+              onclick="selectAnswer(this, false)"
+              aria-pressed="false">
+              Wait and see — she may just be tired from a poor night's sleep.
+            </button>
+            <button
+              class="quiz-option"
+              onclick="selectAnswer(this, true)"
+              aria-pressed="false">
+              Note the change and report to the nurse immediately — this is a red flag for delirium.
+            </button>
+            <button
+              class="quiz-option"
+              onclick="selectAnswer(this, false)"
+              aria-pressed="false">
+              Ask her family to visit later today to help assess the change.
+            </button>
+          </div>
+
+          <p class="quiz-feedback" id="quiz-feedback" role="alert" aria-live="polite"></p>
+        </div>
+
+        <!-- Screen 4: Anchor / completion -->
+        <div class="module-screen module-screen--hidden" id="screen-4" role="group" aria-label="Screen 4 of 4 — Anchor">
+          <div class="module-screen__progress" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="100% complete">
+            <div class="module-screen__progress-bar" style="--progress: 100%;"></div>
+          </div>
+          <p class="module-screen__tag module-screen__tag--success">✓ Complete</p>
+          <h2 class="module-screen__heading">You've got the skill. Now use it.</h2>
+          <p class="module-screen__body">Any sudden change in behaviour — even quiet withdrawal — is a red flag. Report it immediately. Your observation is the first line of protection for your resident.</p>
+          <div class="module-screen__note">
+            <strong>Your one action:</strong> Next time you hand over, explicitly mention if any resident seems different from their baseline — quieter, more confused, or more agitated than usual.
+          </div>
+
+          <!-- Day 7 spaced review teaser -->
+          <div class="day7-teaser" aria-label="Day 7 spaced review preview">
+            <p class="day7-teaser__label">📆 Day 7 review arrives <strong id="staff-day7-date"></strong></p>
+            <p class="day7-teaser__question" aria-hidden="true">Which of the following is NOT a sign of delirium?</p>
+            <div class="day7-teaser__options" aria-hidden="true">
+              <div class="day7-teaser__option">Sudden confusion about time and place</div>
+              <div class="day7-teaser__option">Gradual memory loss over 3 months</div>
+              <div class="day7-teaser__option">Unusually quiet behaviour after lunch</div>
+            </div>
+            <p class="day7-teaser__lock" aria-label="This review is locked until Day 7">🔒 Unlocks in 7 days — retrieval at the right moment locks this in</p>
+          </div>
+
+          <button class="btn btn--secondary btn--full" onclick="resetModule()" aria-label="Restart module from screen 1">
+            ↩ Restart module
+          </button>
+        </div>
+
+      </div><!-- /module-staff -->
+
+      <!-- ======================================
+           MODULE: SENIORS — Staying Hydrated
+           ====================================== -->
+      <div class="sample-module sample-module--hidden" id="module-seniors" role="region" aria-label="Sample micro-learning module: Staying Hydrated">
+
+        <!-- Screen 1: Hook -->
+        <div class="module-screen" id="seniors-screen-1" role="group" aria-label="Screen 1 of 4 — Hook">
+          <div class="module-screen__progress" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="25% complete">
+            <div class="module-screen__progress-bar module-screen__progress-bar--seniors" style="--progress: 25%;"></div>
+          </div>
+          <p class="module-screen__tag">Hook · 30 sec · Seniors</p>
+          <div class="module-screen__hero" aria-hidden="true">💧</div>
+          <h2 class="module-screen__heading module-screen__heading--seniors">Staying hydrated keeps your energy up</h2>
+          <p class="module-screen__body">Water helps your body work well. It keeps your joints moving and your mind sharp — even a little dehydration can make you feel tired or confused.</p>
+          <div class="module-screen__note">⏱ About 2 minutes. One tip. One question.</div>
+          <button class="btn btn--seniors-primary btn--full" onclick="showSeniorsScreen(2)" aria-label="Continue to next screen">
+            Next →
+          </button>
+        </div>
+
+        <!-- Screen 2: Core -->
+        <div class="module-screen module-screen--hidden" id="seniors-screen-2" role="group" aria-label="Screen 2 of 4 — Core">
+          <div class="module-screen__progress" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="50% complete">
+            <div class="module-screen__progress-bar module-screen__progress-bar--seniors" style="--progress: 50%;"></div>
+          </div>
+          <p class="module-screen__tag">Core · 60 sec · Seniors</p>
+          <h2 class="module-screen__heading module-screen__heading--seniors">Aim for 6–8 glasses every day</h2>
+          <p class="module-screen__body">You do not need to drink them all at once. Try one simple habit:</p>
+          <ol class="sign-list" aria-label="Hydration tips">
+            <li class="sign-item">
+              <span class="sign-item__number" aria-hidden="true">1</span>
+              <div class="sign-item__content"><strong>Morning</strong> — one glass when you wake up, before breakfast.</div>
+            </li>
+            <li class="sign-item">
+              <span class="sign-item__number" aria-hidden="true">2</span>
+              <div class="sign-item__content"><strong>With meals</strong> — one glass with each meal counts. That is already 3.</div>
+            </li>
+            <li class="sign-item">
+              <span class="sign-item__number" aria-hidden="true">3</span>
+              <div class="sign-item__content"><strong>Your pills</strong> — take your morning pill with a full glass. That is your first glass done.</div>
+            </li>
+          </ol>
+          <div class="module-screen__note">📋 You do not need to feel thirsty to be dehydrated. Older adults feel thirst less. Sip regularly.</div>
+          <button class="btn btn--seniors-primary btn--full" onclick="showSeniorsScreen(3)" aria-label="Continue to question">
+            I understand. Continue →
+          </button>
+        </div>
+
+        <!-- Screen 3: Yes/No question -->
+        <div class="module-screen module-screen--hidden" id="seniors-screen-3" role="group" aria-label="Screen 3 of 4 — Question">
+          <div class="module-screen__progress" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="75% complete">
+            <div class="module-screen__progress-bar module-screen__progress-bar--seniors" style="--progress: 75%;"></div>
+          </div>
+          <p class="module-screen__tag">Question · Seniors</p>
+          <h2 class="module-screen__heading module-screen__heading--seniors">Do you usually drink 6–8 glasses of water a day?</h2>
+
+          <div class="quiz-options seniors-yesno" role="group" aria-label="Answer yes or no">
+            <button class="quiz-option seniors-btn" id="seniors-yes" onclick="selectSeniorsAnswer(this, 'yes')" aria-pressed="false">✅ Yes, usually</button>
+            <button class="quiz-option seniors-btn" id="seniors-no" onclick="selectSeniorsAnswer(this, 'no')" aria-pressed="false">💧 Not always</button>
+          </div>
+
+          <p class="quiz-feedback" id="seniors-feedback" role="alert" aria-live="polite"></p>
+        </div>
+
+        <!-- Screen 4: Well done -->
+        <div class="module-screen module-screen--hidden" id="seniors-screen-4" role="group" aria-label="Screen 4 of 4 — Well done">
+          <div class="module-screen__progress" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="100% complete">
+            <div class="module-screen__progress-bar module-screen__progress-bar--seniors" style="--progress: 100%;"></div>
+          </div>
+          <div class="module-screen__hero" aria-hidden="true">✅</div>
+          <p class="module-screen__tag module-screen__tag--success">✓ Well done!</p>
+          <h2 class="module-screen__heading module-screen__heading--seniors">You did it!</h2>
+          <p class="module-screen__body">Keep a small water bottle near you during the day. Link one glass to something you already do — like your morning pill.</p>
+          <div class="module-screen__note">
+            <strong>Next topic:</strong> Staying Active — gentle exercises for every day. Coming in Week 2.
+          </div>
+
+          <!-- Day 7 spaced review teaser -->
+          <div class="day7-teaser" aria-label="Week 2 reinforcement preview">
+            <p class="day7-teaser__label" style="color: var(--color-seniors);">📆 Week 2 follow-up arrives <strong id="seniors-day7-date"></strong></p>
+            <p class="day7-teaser__question" aria-hidden="true">Which drink helps you stay hydrated the most?</p>
+            <div class="day7-teaser__options" aria-hidden="true">
+              <div class="day7-teaser__option">Plain water or soup</div>
+              <div class="day7-teaser__option">Coffee or tea only</div>
+            </div>
+            <p class="day7-teaser__lock" aria-label="Follow-up arrives at next AAC session">🔒 Unlocks at your next AAC visit</p>
+          </div>
+
+          <button class="btn btn--seniors-outline btn--full" onclick="resetSeniorsModule()" aria-label="Restart module from screen 1">
+            ↩ Try again
+          </button>
+        </div>
+
+      </div><!-- /module-seniors -->
+
+      <!-- ======================================
+           MODULE: VOLUNTEERS — Our Mission & Values
+           ====================================== -->
+      <div class="sample-module sample-module--hidden" id="module-volunteers" role="region" aria-label="Sample micro-learning module: Our Mission and Values">
+
+        <!-- Screen 1: Hook — Impact stat -->
+        <div class="module-screen" id="vol-screen-1" role="group" aria-label="Screen 1 of 4 — Hook">
+          <div class="module-screen__progress" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="25% complete">
+            <div class="module-screen__progress-bar module-screen__progress-bar--volunteers" style="--progress: 25%;"></div>
+          </div>
+          <p class="module-screen__tag">Culture · 4 min · Volunteers</p>
+          <div class="vol-impact-stat" aria-label="12 seniors made a new friend last month">
+            <span class="vol-impact-stat__number">12</span>
+            <span class="vol-impact-stat__label">seniors made a new friend last month through this programme</span>
+          </div>
+          <p class="module-screen__body">Every name on that list has a befriender — someone who showed up. This module explains why showing up matters, and what we stand for as an organisation.</p>
+          <div class="module-screen__note">⏱ About 3 minutes. An impact story. A reflection. A scenario.</div>
+          <button class="btn btn--vol-primary btn--full" onclick="showVolScreen(2)" aria-label="Continue to mission">
+            Continue →
+          </button>
+        </div>
+
+        <!-- Screen 2: Core — Mission & values -->
+        <div class="module-screen module-screen--hidden" id="vol-screen-2" role="group" aria-label="Screen 2 of 4 — Our Mission">
+          <div class="module-screen__progress" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="50% complete">
+            <div class="module-screen__progress-bar module-screen__progress-bar--volunteers" style="--progress: 50%;"></div>
+          </div>
+          <p class="module-screen__tag">Core · 90 sec · Volunteers</p>
+          <h2 class="module-screen__heading">Our mission &amp; values</h2>
+          <blockquote class="module-screen__quote">"Every visit you make changes someone's day."</blockquote>
+          <ol class="sign-list" aria-label="Our three values">
+            <li class="sign-item">
+              <span class="sign-item__number" aria-hidden="true">1</span>
+              <div class="sign-item__content"><strong>Dignity</strong> — every senior is an individual with a full life story. We listen first.</div>
+            </li>
+            <li class="sign-item">
+              <span class="sign-item__number" aria-hidden="true">2</span>
+              <div class="sign-item__content"><strong>Consistency</strong> — showing up regularly matters more than perfection. Your presence is the point.</div>
+            </li>
+            <li class="sign-item">
+              <span class="sign-item__number" aria-hidden="true">3</span>
+              <div class="sign-item__content"><strong>Safety</strong> — your wellbeing matters too. Escalate concerns; you are not alone.</div>
+            </li>
+          </ol>
+          <button class="btn btn--vol-primary btn--full" onclick="showVolScreen(3)" aria-label="Continue to scenario">
+            Try the scenario →
+          </button>
+        </div>
+
+        <!-- Screen 3: Scenario -->
+        <div class="module-screen module-screen--hidden" id="vol-screen-3" role="group" aria-label="Screen 3 of 4 — Scenario">
+          <div class="module-screen__progress" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="75% complete">
+            <div class="module-screen__progress-bar module-screen__progress-bar--volunteers" style="--progress: 75%;"></div>
+          </div>
+          <p class="module-screen__tag">Scenario · 60 sec · Volunteers</p>
+          <h2 class="module-screen__heading">You arrive for your first visit. Mrs Tan opens the door but doesn't say anything.</h2>
+          <p class="module-screen__body">What do you do first?</p>
+
+          <div class="quiz-options" id="vol-quiz-options" role="group" aria-label="Scenario answer options">
+            <button class="quiz-option" onclick="selectVolAnswer(this, false)" aria-pressed="false">
+              Ask "Is everything okay? What's wrong?" to show you care.
+            </button>
+            <button class="quiz-option" onclick="selectVolAnswer(this, true)" aria-pressed="false">
+              Smile, say your name, and tell her you're glad to be here — then wait.
+            </button>
+          </div>
+
+          <p class="quiz-feedback" id="vol-feedback" role="alert" aria-live="polite"></p>
+        </div>
+
+        <!-- Screen 4: Anchor / completion -->
+        <div class="module-screen module-screen--hidden" id="vol-screen-4" role="group" aria-label="Screen 4 of 4 — You're ready">
+          <div class="module-screen__progress" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="100% complete">
+            <div class="module-screen__progress-bar module-screen__progress-bar--volunteers" style="--progress: 100%;"></div>
+          </div>
+          <div class="module-screen__hero" aria-hidden="true">🎓</div>
+          <p class="module-screen__tag module-screen__tag--vol">✓ Culture badge unlocked</p>
+          <h2 class="module-screen__heading">You're ready. You know what we stand for.</h2>
+          <p class="module-screen__body">A warm, unhurried greeting gives a senior time to feel safe. Patience and presence are the skills — not conversation technique.</p>
+          <div class="module-screen__note">
+            <strong>Phase 3 — Task training</strong> is now unlocked. Your first placement scenario arrives next.
+          </div>
+
+          <!-- Monthly update teaser -->
+          <div class="day7-teaser" aria-label="Monthly micro-update preview">
+            <p class="day7-teaser__label" style="color: var(--color-volunteers);">🎓 Month 2 micro-update arrives <strong id="vol-day7-date"></strong></p>
+            <p class="day7-teaser__question" aria-hidden="true">Mrs Tan seems sad today. What's one thing you could try?</p>
+            <div class="day7-teaser__options" aria-hidden="true">
+              <div class="day7-teaser__option">Ask about a photo you noticed in her home</div>
+              <div class="day7-teaser__option">Tell her about your week to break the silence</div>
+            </div>
+            <p class="day7-teaser__lock" aria-label="Monthly update unlocks next month">🔒 Arrives in Month 2 — keeps your skills sharp between placements</p>
+          </div>
+
+          <button class="btn btn--vol-outline btn--full" onclick="resetVolModule()" aria-label="Restart module from screen 1">
+            ↩ Restart module
+          </button>
+        </div>
+
+      </div><!-- /module-volunteers -->
+
+    </div><!-- /container -->
+  </section>
+
+  <!-- === BACK NAVIGATION === -->
+  <footer class="experience-back" role="contentinfo">
+    <a href="journeys.html" class="experience-back__link">← Back to user journeys</a>
+    <a href="index.html" class="experience-back__link">↑ Back to start</a>
+  </footer>
+
+  <script src="main.js?v=2"></script>
+</body>
+</html>

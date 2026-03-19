@@ -1,0 +1,155 @@
+/* ============================================================
+   MICRO-LEARNING — tokens.css
+   Shared design tokens. Import this in any CSS file:
+     @import './tokens.css';  (or '../ui/tokens.css')
+
+   When Google Stitch generates style.css:
+   1. Add @import './tokens.css'; at the top
+   2. Replace hardcoded hex values in :root with these variable names
+   3. Claude Code can update ALL designs by editing only this file
+   ============================================================ */
+
+:root {
+
+  /* --- Brand colours --- */
+  --color-primary:        #1a56a0;   /* Main blue — care staff, UI chrome */
+  --color-primary-dark:   #103c75;   /* Hover / pressed states */
+  --color-primary-light:  #e8f0fb;   /* Light backgrounds, tags */
+
+  --color-accent:         #e85d2f;   /* Call-to-action, alerts, timers */
+  --color-accent-light:   #fdf0eb;   /* Soft accent backgrounds */
+
+  /* --- Audience accent colours --- */
+  --color-staff:          #1a56a0;   /* Care staff tab / header */
+  --color-seniors:        #2e8b5a;   /* Seniors tab / header (WCAG AA on white) */
+  --color-volunteers:     #6e2d8e;   /* Volunteers tab / header */
+
+  /* --- Neutrals --- */
+  --color-white:          #ffffff;
+  --color-light-bg:       #f7f8fc;
+  --color-border:         #dde3ef;
+  --color-text:           #1a1a2e;
+  --color-text-muted:     #555577;
+  --color-dark-bg:        #12233e;
+  --color-dark-text:      #ffffff;
+
+  /* --- Status colours --- */
+  --color-success:        #2e8b5a;
+  --color-success-light:  #edf7f2;
+  --color-error:          #c0392b;
+  --color-error-light:    #fdf0ee;
+  --color-warning:        #d4851a;
+  --color-warning-light:  #fef6e4;
+
+  /* --- Toggle / quiz states --- */
+  --color-quiz-correct-border: #2e8b5a;
+  --color-quiz-correct-bg:     #edf7f2;
+  --color-quiz-correct-text:   #1a5e3a;
+  --color-quiz-wrong-border:   #c0392b;
+  --color-quiz-wrong-bg:       #fdf0ee;
+  --color-quiz-wrong-text:     #922b21;
+
+  /* --- Typography --- */
+  --font-family:          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Standard scale */
+  --font-size-xs:         0.75rem;   /* 12px */
+  --font-size-sm:         0.875rem;  /* 14px */
+  --font-size-base:       1rem;      /* 16px */
+  --font-size-md:         1.125rem;  /* 18px */
+  --font-size-lg:         1.375rem;  /* 22px */
+  --font-size-xl:         1.75rem;   /* 28px */
+  --font-size-2xl:        2.25rem;   /* 36px */
+  --font-size-3xl:        3rem;      /* 48px */
+
+  /* Seniors-specific overrides (larger minimums) */
+  --font-size-seniors-base:  1.125rem;  /* 18px minimum for seniors */
+  --font-size-seniors-lg:    1.5rem;    /* 24px headings */
+  --font-size-seniors-xl:    1.75rem;   /* 28px main headings */
+
+  --font-weight-normal:   400;
+  --font-weight-medium:   500;
+  --font-weight-bold:     700;
+
+  --line-height-tight:    1.2;
+  --line-height-base:     1.6;
+  --line-height-seniors:  1.7;       /* Extra breathing room for seniors */
+
+  /* --- Spacing (4px base unit) --- */
+  --space-1:  0.25rem;   /* 4px */
+  --space-2:  0.5rem;    /* 8px */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1rem;      /* 16px */
+  --space-5:  1.25rem;   /* 20px */
+  --space-6:  1.5rem;    /* 24px */
+  --space-8:  2rem;      /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+  --space-20: 5rem;      /* 80px */
+  --space-24: 6rem;      /* 96px */
+
+  /* --- Touch targets --- */
+  --tap-min:          44px;   /* WCAG minimum, used on all interactive elements */
+  --tap-min-seniors:  56px;   /* Larger tap targets for seniors view */
+
+  /* --- Layout --- */
+  --max-width:        1080px;
+  --max-width-narrow: 680px;
+  --max-width-mobile: 375px;  /* Design target for mobile modules */
+
+  /* --- Radii --- */
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+  --radius-pill: 100px;
+
+  /* --- Shadows --- */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,0.14);
+
+  /* --- Transitions --- */
+  --transition-fast:  120ms ease;
+  --transition-base:  220ms ease;
+  --transition-slow:  360ms ease;
+
+  /* --- Progress bar --- */
+  --progress-bar-height:    4px;
+  --progress-bar-color:     var(--color-primary);
+  --progress-bar-track:     var(--color-border);
+
+  /* --- Platform-specific --- */
+  --color-streak:          #f5a623;   /* Streak fire colour */
+  --color-streak-light:    #fef6e4;
+  --badge-size:            64px;      /* Badge icon diameter */
+  --badge-size-sm:         40px;      /* Small badge in rows */
+  --platform-max-width:    390px;     /* Phone-frame width */
+  --platform-bg:           #e8edf5;   /* Page bg behind phone frame */
+
+  /* --- Z-index scale --- */
+  --z-base:    0;
+  --z-above:   10;
+  --z-nav:     100;
+  --z-modal:   200;
+  --z-toast:   300;
+
+  /* --- Format type colours (module player badges) --- */
+  --format-scenario:    var(--color-primary);      /* Scenario / decision */
+  --format-quiz:        #c85a00;                   /* Quick quiz / MCQ */
+  --format-reference:   #0077aa;                   /* Reference card */
+  --format-wizard:      var(--color-seniors);      /* Wizard / step-by-step */
+  --format-infographic: #00897b;                   /* Infographic / tip cards */
+  --format-branching:   var(--color-volunteers);   /* Branching scenario */
+  --format-culture:     var(--color-volunteers);   /* Culture / story */
+
+}
+
+/* --- Dark mode overrides (optional, add class="dark" to body) --- */
+.dark {
+  --color-light-bg:  #1e2435;
+  --color-white:     #252c3e;
+  --color-border:    #2e3a50;
+  --color-text:      #e8eaf0;
+  --color-text-muted: #8892a4;
+}
