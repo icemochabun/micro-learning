@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Guided Learning — Introduction to Caregiving</title>
-  <link rel="stylesheet" href="style.css?v=2" />
+  <title>Guided Learning</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <div class="phone-frame">
@@ -47,13 +47,16 @@
 
 
   <!-- ======================================================
-       SCREEN 2: Guided Learning Course List
+       SCREEN 2: Guided Learning — Course Picker + Chapter List
        ====================================================== -->
   <div id="screen-course" class="screen">
     <header class="app-header">
       <button class="back-btn" onclick="showScreen('home')" aria-label="Back to Learn">←</button>
-      <h1 class="app-header__title">Introduction to Caregiving</h1>
+      <h1 class="app-header__title" id="course-screen-title">Guided Learning</h1>
     </header>
+
+    <!-- Course tabs (injected by JS) -->
+    <div id="course-tabs" class="course-tabs" role="tablist" aria-label="Select a course"></div>
 
     <div class="screen-body">
 
@@ -62,7 +65,7 @@
         <div class="course-progress__bar">
           <div class="course-progress__fill" id="course-progress-fill" style="width:0%"></div>
         </div>
-        <p class="course-progress__label" id="course-progress-label">0 of 2 lessons complete</p>
+        <p class="course-progress__label" id="course-progress-label">0 of 5 lessons complete</p>
       </div>
 
       <!-- Chapter list (populated by JS) -->

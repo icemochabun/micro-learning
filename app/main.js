@@ -1,388 +1,630 @@
 /* ============================================================
    main.js — Guided Learning micro-lesson prototype
-   Audience: Seniors (Mr Muthu persona)
+   Audience: Seniors (geragogy principles throughout)
    Content source: AI-generated via backend Learning Academy
    ============================================================ */
 
 // ============================================================
-// COURSE DATA
-// Mirrors the AI-generated structure from the backend:
-//   Module → Chapter → Sections → Key Points / Quizzes
+// INFOGRAPHIC HTML TEMPLATES
+// Defined as constants to keep COURSES data readable
 // ============================================================
 
-const COURSE = {
-  title: 'Introduction to Caregiving',
-  chapters: [
-    {
-      id: 'ch1',
-      title: 'Understanding the Role of a Caregiver',
-      format: 'Tips',
-      duration: '3 min',
-      objective: 'Define what a caregiver does and the scope of their role',
-      completed: false,
+const INFOG_WARNING_SIGNS = `
+<div class="infog">
+  <p class="infog__heading">⚠️ 5 Warning Signs of Distress</p>
+  <div class="infog__list">
+    <div class="infog__row infog__row--red">
+      <span class="infog__icon">😰</span>
+      <span class="infog__text">Sudden confusion or disorientation</span>
+    </div>
+    <div class="infog__row infog__row--orange">
+      <span class="infog__icon">😴</span>
+      <span class="infog__text">Unusual sleepiness or unresponsiveness</span>
+    </div>
+    <div class="infog__row infog__row--yellow">
+      <span class="infog__icon">🚫</span>
+      <span class="infog__text">Refusing food, drink, or medication</span>
+    </div>
+    <div class="infog__row infog__row--orange">
+      <span class="infog__icon">😣</span>
+      <span class="infog__text">Complaints of pain or unusual symptoms</span>
+    </div>
+    <div class="infog__row infog__row--red">
+      <span class="infog__icon">🌡️</span>
+      <span class="infog__text">Fever, pale skin, or difficulty breathing</span>
+    </div>
+  </div>
+</div>`;
 
-      // Hook → Chapter Overview + Section "Did you know?"
-      hook: {
-        emoji: '🤝',
-        heading: 'What does a caregiver really do?',
-        // Source: Section "Did you know?" field
-        fact: 'Over half of caregivers report high levels of emotional strain due to their responsibilities.',
-      },
+const INFOG_5_RIGHTS = `
+<div class="infog">
+  <p class="infog__heading">💊 The 5 Rights of Medication</p>
+  <div class="infog__rights">
+    <div class="infog__right">
+      <span class="infog__rnum">1</span>
+      <div><b class="infog__rlabel">Right Person</b>
+      <span class="infog__rsub"> — Check name &amp; ID band</span></div>
+    </div>
+    <div class="infog__right">
+      <span class="infog__rnum">2</span>
+      <div><b class="infog__rlabel">Right Drug</b>
+      <span class="infog__rsub"> — Read the label twice</span></div>
+    </div>
+    <div class="infog__right">
+      <span class="infog__rnum">3</span>
+      <div><b class="infog__rlabel">Right Dose</b>
+      <span class="infog__rsub"> — Confirm with the care plan</span></div>
+    </div>
+    <div class="infog__right">
+      <span class="infog__rnum">4</span>
+      <div><b class="infog__rlabel">Right Route</b>
+      <span class="infog__rsub"> — Oral, topical, or injection</span></div>
+    </div>
+    <div class="infog__right">
+      <span class="infog__rnum">5</span>
+      <div><b class="infog__rlabel">Right Time</b>
+      <span class="infog__rsub"> — Morning, noon, evening, or as needed</span></div>
+    </div>
+  </div>
+</div>`;
 
-      // Core cards → Section Key Points (one per card)
-      cards: [
-        { emoji: '👤', text: 'A caregiver assists individuals who cannot fully care for themselves.' },
-        { emoji: '💊', text: 'Caregiving includes personal care, medical assistance, and advocacy.' },
-        { emoji: '👥', text: 'There are three main types of caregivers: informal, formal, and professional.' },
-      ],
+const INFOG_DEHYDRATION = `
+<div class="infog">
+  <p class="infog__heading">💧 Signs of Dehydration</p>
+  <p class="infog__subhead">Urine Colour Guide</p>
+  <div class="infog__urine-list">
+    <div class="infog__urine-row">
+      <div class="infog__urine-dot" style="background:#f5e8a0;border:1px solid #d4c870"></div>
+      <span>Pale yellow — Well hydrated ✅</span>
+    </div>
+    <div class="infog__urine-row">
+      <div class="infog__urine-dot" style="background:#e8c43c"></div>
+      <span>Yellow — Drink more water ⬆️</span>
+    </div>
+    <div class="infog__urine-row">
+      <div class="infog__urine-dot" style="background:#c49020"></div>
+      <span>Dark yellow — Dehydrated ⚠️</span>
+    </div>
+    <div class="infog__urine-row">
+      <div class="infog__urine-dot" style="background:#8b6910"></div>
+      <span style="color:#c0392b;font-weight:700">Amber/brown — Seek help now 🚨</span>
+    </div>
+  </div>
+  <p class="infog__subhead" style="margin-top:12px">Common Symptoms</p>
+  <div class="infog__symptoms">
+    <span class="infog__symptom">😵 Confusion</span>
+    <span class="infog__symptom">🤕 Headache</span>
+    <span class="infog__symptom">💋 Dry mouth</span>
+    <span class="infog__symptom">😴 Fatigue</span>
+    <span class="infog__symptom">🫀 Rapid heartbeat</span>
+  </div>
+</div>`;
 
-      // Retrieval → Chapter Quizzes tab (repositioned after Core)
-      quiz: {
-        question: 'What is the primary role of a caregiver?',
-        options: [
-          { text: 'Help people who cannot fully care for themselves', correct: true },
-          { text: 'Provide entertainment and social activities only', correct: false },
-        ],
-        feedback: {
-          correct: '✅ Well done! Caregivers support people with daily life, medical needs, and more.',
-          wrong: '❌ Not quite — caregivers do much more: personal care, medical support, and advocacy.',
+const INFOG_BALANCED_PLATE = `
+<div class="infog">
+  <p class="infog__heading">🥗 The Balanced Plate</p>
+  <div class="infog__plate-sections">
+    <div class="infog__plate-sec" style="border-left-color:#22c55e;background:#f0fdf4">
+      <span class="infog__plate-icon">🥦🍅🥕</span>
+      <div>
+        <span class="infog__plate-frac">½</span>
+        <b class="infog__plate-name">Vegetables &amp; Fruit</b>
+        <span class="infog__plate-tip">Aim for a variety of colours — each colour offers different nutrients</span>
+      </div>
+    </div>
+    <div class="infog__plate-sec" style="border-left-color:#f59e0b;background:#fffbeb">
+      <span class="infog__plate-icon">🍗🐟🥚</span>
+      <div>
+        <span class="infog__plate-frac">¼</span>
+        <b class="infog__plate-name">Lean Protein</b>
+        <span class="infog__plate-tip">Preserves muscle mass and speeds recovery after illness</span>
+      </div>
+    </div>
+    <div class="infog__plate-sec" style="border-left-color:#8b5cf6;background:#f5f3ff">
+      <span class="infog__plate-icon">🍚🌾🍞</span>
+      <div>
+        <span class="infog__plate-frac">¼</span>
+        <b class="infog__plate-name">Wholegrains</b>
+        <span class="infog__plate-tip">Steady energy levels and healthy digestion</span>
+      </div>
+    </div>
+  </div>
+  <div class="infog__plate-footer">💧 Add 6–8 glasses of water alongside every meal</div>
+</div>`;
+
+
+// ============================================================
+// COURSE DATA
+// Two courses, 8 chapters total, across 4 card types:
+//   text · video · infographic · checklist
+// ============================================================
+
+const COURSES = [
+
+  // ─────────────────────────────────────────────────────────
+  // COURSE 1: Introduction to Caregiving (5 chapters)
+  // ─────────────────────────────────────────────────────────
+  {
+    id: 'course-caregiving',
+    title: 'Introduction to Caregiving',
+    icon: '🤝',
+    description: 'Core knowledge for care support staff and family caregivers',
+    chapters: [
+
+      // Chapter 1 — text cards
+      {
+        id: 'ch1',
+        title: 'Understanding the Role of a Caregiver',
+        format: 'Tips',
+        duration: '3 min',
+        objective: 'Define what a caregiver does and the scope of their role',
+        completed: false,
+        hook: {
+          emoji: '🤝',
+          heading: 'What does a caregiver really do?',
+          fact: 'Over half of caregivers report high levels of emotional strain due to the breadth of their responsibilities.',
         },
-      },
-
-      // Anchor → Key Point reframed as rule + action
-      anchor: {
-        emoji: '⭐',
-        takeaway: 'Caregiving means supporting the whole person — body, mind, and voice.',
-        action: 'When you meet someone who needs help, ask: "What would make today easier for you?"',
-      },
-
-      // Completion → one-sentence outcome
-      outcome: 'A caregiver supports people with personal care, medical needs, and advocacy.',
-    },
-
-    {
-      id: 'ch2',
-      title: 'Ethical and Emotional Responsibilities',
-      format: 'Tips',
-      duration: '4 min',
-      objective: 'Understand how to communicate with care, empathy, and respect',
-      completed: false,
-
-      hook: {
-        emoji: '💙',
-        heading: 'Why does how you speak matter as much as what you do?',
-        fact: 'Caregivers who communicate with empathy report significantly higher satisfaction from the people they care for.',
-      },
-
-      cards: [
-        { emoji: '👂', text: 'Active listening means giving your full attention without interrupting.' },
-        { emoji: '🤲', text: 'Empathy means understanding what the person feels — not just what they say.' },
-        { emoji: '🛡️', text: 'Respecting privacy and dignity is a core ethical responsibility of all caregivers.' },
-      ],
-
-      quiz: {
-        question: 'Which of these shows ethical communication as a caregiver?',
-        options: [
-          { text: 'Listen fully and respect the person\'s own choices', correct: true },
-          { text: 'Make decisions for the person to save time', correct: false },
+        cards: [
+          { type: 'text', emoji: '👤', text: 'A caregiver assists individuals who cannot fully care for themselves.' },
+          { type: 'text', emoji: '💊', text: 'Caregiving includes personal care, medical assistance, and advocacy.' },
+          { type: 'text', emoji: '👥', text: 'There are three main types of caregivers: informal, formal, and professional.' },
         ],
-        feedback: {
-          correct: '✅ Exactly right! Respecting choices is at the heart of ethical caregiving.',
-          wrong: '❌ Caregivers should support — not override — the person\'s own choices and voice.',
+        quiz: {
+          question: 'What is the primary role of a caregiver?',
+          options: [
+            { text: 'Help people who cannot fully care for themselves', correct: true },
+            { text: 'Provide entertainment and social activities only', correct: false },
+          ],
+          feedback: {
+            correct: '✅ Well done! Caregivers support people with daily life, medical needs, and more.',
+            wrong: '❌ Not quite — caregivers do much more: personal care, medical support, and advocacy.',
+          },
         },
+        anchor: {
+          emoji: '⭐',
+          takeaway: 'Caregiving means supporting the whole person — body, mind, and voice.',
+          action: 'When you meet someone who needs help, ask: "What would make today easier for you?"',
+        },
+        outcome: 'A caregiver supports people with personal care, medical needs, and advocacy.',
       },
 
-      anchor: {
-        emoji: '💬',
-        takeaway: 'How you say something matters as much as what you say.',
-        action: 'Before speaking to someone today, take a breath and ask: "How would I want to be spoken to?"',
+      // Chapter 2 — text cards
+      {
+        id: 'ch2',
+        title: 'Ethical and Emotional Responsibilities',
+        format: 'Tips',
+        duration: '4 min',
+        objective: 'Communicate with care, empathy, and respect in every interaction',
+        completed: false,
+        hook: {
+          emoji: '💙',
+          heading: 'Why does how you speak matter as much as what you do?',
+          fact: 'Caregivers who communicate with empathy report significantly higher satisfaction from the people they support.',
+        },
+        cards: [
+          { type: 'text', emoji: '👂', text: 'Active listening means giving your full attention — without interrupting.' },
+          { type: 'text', emoji: '🤲', text: 'Empathy means understanding what the person feels, not just what they say.' },
+          { type: 'text', emoji: '🛡️', text: 'Respecting privacy and dignity is a core ethical responsibility of every caregiver.' },
+        ],
+        quiz: {
+          question: 'Which of these shows ethical communication as a caregiver?',
+          options: [
+            { text: 'Listen fully and respect the person\'s own choices', correct: true },
+            { text: 'Make decisions for the person to save time', correct: false },
+          ],
+          feedback: {
+            correct: '✅ Exactly right! Respecting choices is at the heart of ethical caregiving.',
+            wrong: '❌ Caregivers should support — not override — the person\'s own choices and voice.',
+          },
+        },
+        anchor: {
+          emoji: '💬',
+          takeaway: 'How you say something matters as much as what you say.',
+          action: 'Before speaking to someone today, take a breath and ask: "How would I want to be spoken to?"',
+        },
+        outcome: 'Ethical caregivers listen, empathise, and always respect the person\'s dignity and choices.',
       },
 
-      outcome: 'Ethical caregivers listen, empathise, and always respect the person\'s dignity and choices.',
-    },
-  ],
-};
+      // Chapter 3 — INFOGRAPHIC card
+      {
+        id: 'ch3',
+        title: 'Recognising Signs of Distress',
+        format: 'Infographic',
+        duration: '4 min',
+        objective: 'Identify physical and emotional warning signs that someone needs immediate support',
+        completed: false,
+        hook: {
+          emoji: '🚨',
+          heading: 'What does it look like when someone is not okay?',
+          fact: 'Early recognition of distress can prevent 40% of care emergencies from escalating to a critical level.',
+        },
+        cards: [
+          {
+            type: 'infographic',
+            html: INFOG_WARNING_SIGNS,
+            caption: 'Tap "Next card" when you have read all 5 signs.',
+          },
+          { type: 'text', emoji: '👁️', text: 'Trust your instincts — if something seems wrong, it probably is. Never dismiss a quiet concern.' },
+          { type: 'text', emoji: '📋', text: 'Document what you observe: time, behaviour, and any change from the person\'s normal pattern.' },
+        ],
+        quiz: {
+          question: 'What should you do first when you notice signs of distress?',
+          options: [
+            { text: 'Alert the care team and document what you saw', correct: true },
+            { text: 'Wait and see if it improves on its own', correct: false },
+          ],
+          feedback: {
+            correct: '✅ Right! Early reporting and accurate documentation are the two most critical first responses.',
+            wrong: '❌ Never wait — distress signs require prompt reporting to the care team immediately.',
+          },
+        },
+        anchor: {
+          emoji: '🚨',
+          takeaway: 'Notice. Document. Report. These three actions can save a life.',
+          action: 'Practice saying aloud: "I noticed something different today and I need to report it."',
+        },
+        outcome: 'Early recognition and prompt reporting of distress signs prevents emergencies from escalating.',
+      },
+
+      // Chapter 4 — VIDEO + INFOGRAPHIC cards
+      {
+        id: 'ch4',
+        title: 'Safe Medication Handling',
+        format: 'Video',
+        duration: '5 min',
+        objective: 'Apply the 5 Rights of medication to prevent errors in care settings',
+        completed: false,
+        hook: {
+          emoji: '💊',
+          heading: 'Getting medication right is one of the most important things you will do',
+          fact: 'Medication errors are the second most common cause of preventable harm in care settings globally.',
+        },
+        cards: [
+          {
+            type: 'video',
+            emoji: '💊',
+            title: 'Safe Medication Practices',
+            caption: 'How to verify the 5 Rights before every dose',
+            duration: '3:24',
+            gradient: 'linear-gradient(135deg, #1a56a0 0%, #0d3b7a 100%)',
+            videoUrl: 'https://www.youtube.com/results?search_query=medication+safety+5+rights+caregiving',
+          },
+          {
+            type: 'infographic',
+            html: INFOG_5_RIGHTS,
+            caption: 'Memorise all 5 Rights — check each one before every dose.',
+          },
+          { type: 'text', emoji: '🚫', text: 'Never administer medication without checking for known allergies first. Check the care plan every time.' },
+        ],
+        quiz: {
+          question: 'What does "The 5 Rights" in medication administration mean?',
+          options: [
+            { text: 'Right person, drug, dose, route, and time', correct: true },
+            { text: 'Right ward, doctor, date, nurse, and hospital', correct: false },
+          ],
+          feedback: {
+            correct: '✅ Correct! Always verify all 5 Rights before giving any medication.',
+            wrong: '❌ The 5 Rights are: right person, right drug, right dose, right route, and right time.',
+          },
+        },
+        anchor: {
+          emoji: '💊',
+          takeaway: 'A moment of care now prevents a medical emergency later.',
+          action: 'Say all 5 Rights out loud before giving any medication this week — every single time.',
+        },
+        outcome: 'The 5 Rights of medication prevent errors and protect the people in your care.',
+      },
+
+      // Chapter 5 — CHECKLIST card
+      {
+        id: 'ch5',
+        title: 'Preventing Falls at Home',
+        format: 'Checklist',
+        duration: '4 min',
+        objective: 'Use a systematic home safety checklist to identify and reduce fall risks',
+        completed: false,
+        hook: {
+          emoji: '🏠',
+          heading: 'Falls are preventable — most happen in familiar places',
+          fact: '1 in 3 seniors falls each year. 80% of home falls happen in the bathroom or bedroom — both fixable.',
+        },
+        cards: [
+          {
+            type: 'checklist',
+            title: '🏠 Home Safety Check — tap each item to verify it',
+            items: [
+              'Clear pathways — no loose rugs or clutter on the floor',
+              'Non-slip mats in the bathroom and next to the bed',
+              'Grab bars installed near the toilet and shower',
+              'Good lighting in hallways, stairs, and bathroom',
+              'Frequently used items within easy reach (no stretching up)',
+              'Non-slip footwear available — no bare feet or socks only',
+            ],
+          },
+          { type: 'text', emoji: '💡', text: 'Good lighting alone reduces fall risk by up to 60% — replace dim bulbs immediately.' },
+          { type: 'text', emoji: '🧓', text: 'Ask: "Is there anything in your home that makes you feel unsafe?" Their answer is your guide.' },
+        ],
+        quiz: {
+          question: 'Which factor most commonly causes falls at home?',
+          options: [
+            { text: 'Poor lighting and slippery or cluttered surfaces', correct: true },
+            { text: 'Too much physical activity during the day', correct: false },
+          ],
+          feedback: {
+            correct: '✅ Correct! Environmental hazards cause most home falls — and they are fixable.',
+            wrong: '❌ Most falls are caused by environment: poor lighting, loose rugs, and slippery surfaces.',
+          },
+        },
+        anchor: {
+          emoji: '🏠',
+          takeaway: 'A safe home is a designed home — prevention starts with your eyes open.',
+          action: 'Do a 2-minute walk-through of the home right now. What is one thing you can fix today?',
+        },
+        outcome: 'Identifying and removing environmental hazards is the most effective way to prevent falls.',
+      },
+
+    ], // end course 1 chapters
+  },
+
+  // ─────────────────────────────────────────────────────────
+  // COURSE 2: Nutrition & Hydration for Seniors (3 chapters)
+  // ─────────────────────────────────────────────────────────
+  {
+    id: 'course-nutrition',
+    title: 'Nutrition & Hydration',
+    icon: '💧',
+    description: 'Support seniors to eat well and stay properly hydrated every day',
+    chapters: [
+
+      // Chapter 1 — VIDEO card
+      {
+        id: 'nh1',
+        title: 'Why Hydration Matters for Seniors',
+        format: 'Video',
+        duration: '4 min',
+        objective: 'Understand why seniors are at high risk of dehydration and your role in prevention',
+        completed: false,
+        hook: {
+          emoji: '💧',
+          heading: 'Many seniors are dehydrated — and they don\'t know it',
+          fact: 'Up to 40% of care home residents are chronically under-hydrated, putting them at risk of falls and confusion.',
+        },
+        cards: [
+          {
+            type: 'video',
+            emoji: '💧',
+            title: 'Hydration and the Ageing Body',
+            caption: 'Why thirst is not a reliable signal for seniors',
+            duration: '2:48',
+            gradient: 'linear-gradient(135deg, #0891b2 0%, #0e7490 100%)',
+            videoUrl: 'https://www.youtube.com/results?search_query=hydration+importance+elderly+seniors+caregiving',
+          },
+          { type: 'text', emoji: '🧠', text: 'As we age, the sense of thirst decreases. Seniors may not feel thirsty even when dehydrated.' },
+          { type: 'text', emoji: '🥤', text: 'Aim to offer 6–8 glasses (1.5–2 litres) of fluid throughout the day. Do not wait to be asked.' },
+        ],
+        quiz: {
+          question: 'Why do seniors often not feel thirsty even when dehydrated?',
+          options: [
+            { text: 'The sense of thirst naturally decreases with age', correct: true },
+            { text: 'They already drink too much water each day', correct: false },
+          ],
+          feedback: {
+            correct: '✅ Correct! This is exactly why caregivers must proactively offer drinks throughout the day.',
+            wrong: '❌ Most seniors actually under-drink. The thirst mechanism weakens with age — we must offer proactively.',
+          },
+        },
+        anchor: {
+          emoji: '💧',
+          takeaway: 'Your job is to offer drinks proactively — do not wait to be asked.',
+          action: 'Set a reminder to offer a drink every 2 hours during your next shift or visit.',
+        },
+        outcome: 'Seniors have a weakened sense of thirst — proactive drink offerings prevent dehydration.',
+      },
+
+      // Chapter 2 — INFOGRAPHIC card
+      {
+        id: 'nh2',
+        title: 'Recognising Dehydration',
+        format: 'Infographic',
+        duration: '3 min',
+        objective: 'Identify the visual and physical signs of dehydration quickly and accurately',
+        completed: false,
+        hook: {
+          emoji: '🔍',
+          heading: 'Can you spot the signs of dehydration?',
+          fact: 'Mild dehydration in seniors is often mistaken for confusion or the early stages of dementia.',
+        },
+        cards: [
+          {
+            type: 'infographic',
+            html: INFOG_DEHYDRATION,
+            caption: 'Study the urine colour guide — it is the most reliable visual indicator.',
+          },
+          { type: 'text', emoji: '👁️', text: 'Check urine colour daily — pale straw to light yellow means well hydrated; dark yellow or amber means act now.' },
+          { type: 'text', emoji: '🧠', text: 'Sudden confusion or drowsiness may be dehydration. Offer water first, then assess further.' },
+        ],
+        quiz: {
+          question: 'Which is an early warning sign of dehydration?',
+          options: [
+            { text: 'Dark-coloured urine and feeling confused', correct: true },
+            { text: 'Bright red skin and very high energy levels', correct: false },
+          ],
+          feedback: {
+            correct: '✅ Correct! Dark urine and confusion are key early warning signs to watch for.',
+            wrong: '❌ Dehydration signs include dark urine, confusion, dry mouth, and fatigue — not increased energy.',
+          },
+        },
+        anchor: {
+          emoji: '💧',
+          takeaway: 'When in doubt — offer a drink. It is the simplest act of care.',
+          action: 'Next time you see confusion or low energy, offer a glass of water before anything else.',
+        },
+        outcome: 'Dark urine and confusion are key dehydration signs — proactive monitoring prevents harm.',
+      },
+
+      // Chapter 3 — INFOGRAPHIC card
+      {
+        id: 'nh3',
+        title: 'Building a Balanced Plate',
+        format: 'Infographic',
+        duration: '4 min',
+        objective: 'Plan balanced meals that meet seniors\' nutritional needs for energy and recovery',
+        completed: false,
+        hook: {
+          emoji: '🥗',
+          heading: 'A balanced meal supports energy, immunity, and healing',
+          fact: 'Poor nutrition contributes to 30% of hospital readmissions in seniors over 65 — most of which are preventable.',
+        },
+        cards: [
+          {
+            type: 'infographic',
+            html: INFOG_BALANCED_PLATE,
+            caption: 'Half the plate vegetables — this is the single most important rule.',
+          },
+          { type: 'text', emoji: '🍗', text: 'Protein is especially important for seniors — it preserves muscle mass and supports healing after illness.' },
+          { type: 'text', emoji: '🍽️', text: 'Small, frequent meals often work better than three large ones for seniors with reduced appetites.' },
+        ],
+        quiz: {
+          question: 'Which food group should take up the most space on a senior\'s plate?',
+          options: [
+            { text: 'Vegetables and fruit', correct: true },
+            { text: 'Bread, rice, and pasta', correct: false },
+          ],
+          feedback: {
+            correct: '✅ Correct! Half the plate should be colourful vegetables and fruit.',
+            wrong: '❌ Vegetables and fruit should fill half the plate. Wholegrains are just one quarter.',
+          },
+        },
+        anchor: {
+          emoji: '🥗',
+          takeaway: 'A colourful plate is usually a healthy plate.',
+          action: 'At the next meal, count how many different colours are on the plate. Aim for three or more.',
+        },
+        outcome: 'Half plate vegetables, quarter protein, quarter wholegrains — plus 6–8 glasses of water daily.',
+      },
+
+    ], // end course 2 chapters
+  },
+
+]; // end COURSES
 
 
 // ============================================================
 // STATE
 // ============================================================
-let currentLesson = 0;   // index into COURSE.chapters
-let playerSource  = 'course'; // 'home' | 'course' — determines back nav
-let cardIndex     = 0;   // current card in Core phase
-let quizAnswered  = false;
+let currentCourse  = 0;   // index into COURSES
+let currentLesson  = 0;   // index into COURSES[currentCourse].chapters
+let playerSource   = 'course'; // 'home' | 'course'
+let cardIndex      = 0;
+let quizAnswered   = false;
 
-// Player step order and progress bar positions
 const STEPS    = ['hook', 'core', 'retrieval', 'anchor'];
 const PROGRESS = { hook: '15%', core: '45%', retrieval: '75%', anchor: '95%' };
 
 
 // ============================================================
-// NAVIGATION
+// NAVIGATION — screens
 // ============================================================
 
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('screen--active'));
   document.getElementById('screen-' + id).classList.add('screen--active');
+  // Sync course screen title when showing course list
+  if (id === 'course') {
+    document.getElementById('course-screen-title').textContent = COURSES[currentCourse].title;
+  }
 }
 
-/** Called by Today's Lesson "Start" button — auto-detects next incomplete lesson */
 function startLessonFromHome() {
-  const idx = getNextLessonIndex();
-  if (idx >= 0) startLesson(idx, 'home');
+  // Find next incomplete lesson in course 0 (primary course)
+  const idx = COURSES[0].chapters.findIndex(c => !c.completed);
+  if (idx >= 0) startLesson(0, idx, 'home');
 }
 
-/** Open the micro-player for a specific chapter */
-function startLesson(index, source) {
-  currentLesson = index;
-  playerSource  = source || 'course';
-  cardIndex     = 0;
-  quizAnswered  = false;
-  setupPlayer(COURSE.chapters[index]);
+function startLesson(courseIdx, chapterIdx, source) {
+  currentCourse  = courseIdx;
+  currentLesson  = chapterIdx;
+  playerSource   = source || 'course';
+  cardIndex      = 0;
+  quizAnswered   = false;
+  setupPlayer(COURSES[courseIdx].chapters[chapterIdx]);
   showScreen('player');
   showStep('hook');
 }
 
-/** ← button inside player */
 function exitPlayer() {
   showScreen(playerSource === 'home' ? 'home' : 'course');
 }
 
-/** Back button on completion screen — marks lesson done and returns */
 function finishLesson() {
-  COURSE.chapters[currentLesson].completed = true;
+  COURSES[currentCourse].chapters[currentLesson].completed = true;
   buildChapterList();
   updateCourseProgress();
   updateHomeCard();
   showScreen(playerSource === 'home' ? 'home' : 'course');
 }
 
-/** Returns the index of the first incomplete chapter, or -1 if all done */
-function getNextLessonIndex() {
-  return COURSE.chapters.findIndex(c => !c.completed);
-}
-
 
 // ============================================================
-// HOME SCREEN — update Today's Lesson card dynamically
+// HOME SCREEN
 // ============================================================
 
 function updateHomeCard() {
-  const idx = getNextLessonIndex();
+  const idx = COURSES[0].chapters.findIndex(c => !c.completed);
   if (idx < 0) {
-    // All lessons complete
-    document.getElementById('home-lesson-title').textContent = 'All lessons complete! 🎉';
-    document.getElementById('home-lesson-sub').textContent = 'Great work — review arrives in 7 days';
-    document.getElementById('home-start-btn').textContent  = 'Revisit course →';
-    document.getElementById('home-start-btn').onclick = () => showScreen('course');
+    document.getElementById('home-lesson-title').textContent = 'All caregiving lessons complete! 🎉';
+    document.getElementById('home-lesson-sub').textContent   = 'Great work — review arrives in 7 days';
+    document.getElementById('home-start-btn').textContent    = 'Revisit course →';
+    document.getElementById('home-start-btn').onclick = () => { currentCourse = 0; showScreen('course'); };
   } else {
-    const lesson = COURSE.chapters[idx];
+    const lesson = COURSES[0].chapters[idx];
     document.getElementById('home-lesson-title').textContent = lesson.title;
-    document.getElementById('home-lesson-sub').textContent  = `${lesson.format} · ${lesson.duration}`;
-    document.getElementById('home-start-btn').textContent   = 'Start today\'s lesson →';
+    document.getElementById('home-lesson-sub').textContent   = `${lesson.format} · ${lesson.duration}`;
+    document.getElementById('home-start-btn').textContent    = 'Start today\'s lesson →';
     document.getElementById('home-start-btn').onclick = startLessonFromHome;
   }
 }
 
 
 // ============================================================
-// PLAYER SETUP — populate all sub-screens for one chapter
+// COURSE SCREEN — tabs + chapter list
 // ============================================================
 
-function setupPlayer(lesson) {
-  // --- Format badge ---
-  document.getElementById('player-format-badge').textContent = `${lesson.format} · ${lesson.duration}`;
-
-  // --- Hook ---
-  document.getElementById('hook-emoji').textContent   = lesson.hook.emoji;
-  document.getElementById('hook-heading').textContent = lesson.hook.heading;
-  document.getElementById('hook-fact').textContent    = lesson.hook.fact;
-
-  // --- Core cards ---
-  const cardsContainer = document.getElementById('core-cards-container');
-  cardsContainer.innerHTML = '';
-  lesson.cards.forEach((card, i) => {
-    const div = document.createElement('div');
-    div.className = 'core-card' + (i === 0 ? ' core-card--active' : '');
-    div.innerHTML = `
-      <div class="core-card__emoji">${card.emoji}</div>
-      <p class="core-card__text">${card.text}</p>
-    `;
-    cardsContainer.appendChild(div);
-  });
-
-  // --- Card dots ---
-  const dotsContainer = document.getElementById('card-dots');
-  dotsContainer.innerHTML = '';
-  lesson.cards.forEach((_, i) => {
-    const dot = document.createElement('div');
-    dot.className = 'card-dot' + (i === 0 ? ' card-dot--active' : '');
-    dot.id = `card-dot-${i}`;
-    dotsContainer.appendChild(dot);
-  });
-
-  updateCardUI(lesson, 0);
-
-  // --- Quiz ---
-  document.getElementById('quiz-question').textContent = lesson.quiz.question;
-  document.getElementById('quiz-feedback').textContent = '';
-  document.getElementById('quiz-continue-btn').style.display = 'none';
-  quizAnswered = false;
-
-  const optionsContainer = document.getElementById('quiz-options');
-  optionsContainer.innerHTML = '';
-  lesson.quiz.options.forEach(opt => {
+function buildCourseTabs() {
+  const container = document.getElementById('course-tabs');
+  container.innerHTML = '';
+  COURSES.forEach((course, i) => {
     const btn = document.createElement('button');
-    btn.className = 'quiz-option';
-    btn.textContent = opt.text;
-    btn.onclick = () => submitQuiz(btn, opt.correct, lesson.quiz.feedback);
-    optionsContainer.appendChild(btn);
+    btn.className = 'course-tab' + (i === currentCourse ? ' course-tab--active' : '');
+    btn.setAttribute('role', 'tab');
+    btn.setAttribute('aria-selected', i === currentCourse ? 'true' : 'false');
+    btn.innerHTML = `${course.icon}&thinsp;${course.title}`;
+    btn.onclick = () => selectCourse(i);
+    container.appendChild(btn);
   });
-
-  // --- Anchor ---
-  document.getElementById('anchor-emoji').textContent    = lesson.anchor.emoji;
-  document.getElementById('anchor-takeaway').textContent = lesson.anchor.takeaway;
-  document.getElementById('anchor-action').textContent   = lesson.anchor.action;
-
-  // Reset progress bar
-  document.getElementById('player-progress-fill').style.width = '0%';
 }
 
-
-// ============================================================
-// PLAYER STEP NAVIGATION
-// ============================================================
-
-function showStep(step) {
-  document.querySelectorAll('.player-sub').forEach(s => s.classList.remove('player-sub--active'));
-  document.getElementById('player-' + step).classList.add('player-sub--active');
-  document.getElementById('player-progress-fill').style.width = PROGRESS[step];
-}
-
-/** Advance to the next step in sequence (used by Hook "Next →" and Retrieval "Continue →") */
-function nextStep() {
-  const activeEl   = document.querySelector('.player-sub--active');
-  const currentId  = activeEl ? activeEl.id.replace('player-', '') : 'hook';
-  const idx        = STEPS.indexOf(currentId);
-  if (idx >= 0 && idx < STEPS.length - 1) {
-    const next = STEPS[idx + 1];
-    if (next === 'core') {
-      cardIndex = 0;
-      updateCardUI(COURSE.chapters[currentLesson], 0);
-    }
-    showStep(next);
-  }
-}
-
-
-// ============================================================
-// CORE CARDS
-// ============================================================
-
-function updateCardUI(lesson, idx) {
-  // Show/hide cards
-  const cards = document.querySelectorAll('.core-card');
-  cards.forEach((card, i) => card.classList.toggle('core-card--active', i === idx));
-
-  // Update dots
-  const dots = document.querySelectorAll('.card-dot');
-  dots.forEach((dot, i) => {
-    dot.className = 'card-dot';
-    if (i === idx) dot.classList.add('card-dot--active');
-    else if (i < idx) dot.classList.add('card-dot--done');
+function selectCourse(idx) {
+  currentCourse = idx;
+  // Update tab active states
+  document.querySelectorAll('.course-tab').forEach((tab, i) => {
+    tab.classList.toggle('course-tab--active', i === idx);
+    tab.setAttribute('aria-selected', i === idx ? 'true' : 'false');
   });
-
-  // Counter label
-  document.getElementById('card-counter-text').textContent =
-    `Card ${idx + 1} of ${lesson.cards.length}`;
-
-  // Next button: last card triggers retrieval
-  const nextBtn = document.getElementById('core-next-btn');
-  if (idx === lesson.cards.length - 1) {
-    nextBtn.textContent = 'Check your learning →';
-    nextBtn.onclick = () => showStep('retrieval');
-  } else {
-    nextBtn.textContent = 'Next card →';
-    nextBtn.onclick = nextCard;
-  }
+  document.getElementById('course-screen-title').textContent = COURSES[idx].title;
+  buildChapterList();
+  updateCourseProgress();
 }
-
-function nextCard() {
-  const lesson = COURSE.chapters[currentLesson];
-  if (cardIndex < lesson.cards.length - 1) {
-    cardIndex++;
-    updateCardUI(lesson, cardIndex);
-  }
-}
-
-
-// ============================================================
-// RETRIEVAL QUIZ
-// ============================================================
-
-function submitQuiz(selectedBtn, isCorrect, feedback) {
-  if (quizAnswered) return;
-  quizAnswered = true;
-
-  // Disable all options
-  document.querySelectorAll('.quiz-option').forEach(btn => { btn.disabled = true; });
-
-  // Highlight selected
-  selectedBtn.classList.add(isCorrect ? 'quiz-option--correct' : 'quiz-option--wrong');
-
-  // Show feedback
-  document.getElementById('quiz-feedback').textContent =
-    isCorrect ? feedback.correct : feedback.wrong;
-
-  // Reveal continue button after brief pause so feedback is read first
-  setTimeout(() => {
-    const continueBtn = document.getElementById('quiz-continue-btn');
-    continueBtn.style.display = 'flex';
-  }, 1200);
-}
-
-
-// ============================================================
-// COMPLETION SCREEN
-// ============================================================
-
-function showCompletion() {
-  const lesson = COURSE.chapters[currentLesson];
-
-  // Outcome
-  document.getElementById('done-outcome').textContent = 'You now know: ' + lesson.outcome;
-
-  // Review date: today + 7 days, formatted for seniors (clear and readable)
-  const reviewDate = new Date();
-  reviewDate.setDate(reviewDate.getDate() + 7);
-  const formatted = reviewDate.toLocaleDateString('en-GB', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-  });
-  document.getElementById('done-review-date').textContent = formatted;
-
-  // Back button label
-  document.getElementById('done-back-btn').textContent =
-    playerSource === 'home' ? '← Back to home' : '← Back to course';
-
-  showScreen('done');
-}
-
-
-// ============================================================
-// COURSE LIST
-// ============================================================
 
 function buildChapterList() {
-  const list = document.getElementById('chapter-list');
+  const list     = document.getElementById('chapter-list');
+  const chapters = COURSES[currentCourse].chapters;
   list.innerHTML = '';
 
-  COURSE.chapters.forEach((ch, i) => {
-    const prevDone    = i === 0 || COURSE.chapters[i - 1].completed;
+  chapters.forEach((ch, i) => {
+    const prevDone     = i === 0 || chapters[i - 1].completed;
     const isAccessible = ch.completed || prevDone;
 
-    // State classification
     let itemClass  = '';
     let stateHtml  = '';
     let clickable  = false;
@@ -400,6 +642,13 @@ function buildChapterList() {
       stateHtml = '<span class="chapter-state">🔒</span>';
     }
 
+    // Format badge colour variant
+    const formatClass = {
+      'Video': 'format-badge--video',
+      'Infographic': 'format-badge--infographic',
+      'Checklist': 'format-badge--checklist',
+    }[ch.format] || '';
+
     const li = document.createElement('li');
     li.className = `chapter-item ${itemClass}`;
     li.setAttribute('role', clickable ? 'button' : 'listitem');
@@ -410,31 +659,278 @@ function buildChapterList() {
       <div class="chapter-info">
         <span class="chapter-title">${ch.title}</span>
         <div class="chapter-meta">
-          <span class="format-badge">${ch.format}</span>
+          <span class="format-badge ${formatClass}">${ch.format}</span>
           <span class="chapter-duration">${ch.duration}</span>
         </div>
-        <span class="chapter-objective" style="font-size:var(--font-size-sm);color:var(--color-text-muted);margin-top:2px;">${ch.objective}</span>
+        <span class="chapter-objective">${ch.objective}</span>
       </div>
       ${stateHtml}
     `;
 
     if (clickable) {
-      li.onclick = () => startLesson(i, 'course');
-      li.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') startLesson(i, 'course'); };
+      li.onclick   = () => startLesson(currentCourse, i, 'course');
+      li.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') startLesson(currentCourse, i, 'course'); };
     }
-
     list.appendChild(li);
   });
 }
 
 function updateCourseProgress() {
-  const done  = COURSE.chapters.filter(c => c.completed).length;
-  const total = COURSE.chapters.length;
+  const chapters = COURSES[currentCourse].chapters;
+  const done  = chapters.filter(c => c.completed).length;
+  const total = chapters.length;
   const pct   = Math.round((done / total) * 100);
-
-  document.getElementById('course-progress-fill').style.width = pct + '%';
+  document.getElementById('course-progress-fill').style.width  = pct + '%';
   document.getElementById('course-progress-label').textContent =
     `${done} of ${total} lesson${total !== 1 ? 's' : ''} complete`;
+}
+
+
+// ============================================================
+// PLAYER SETUP
+// ============================================================
+
+function setupPlayer(lesson) {
+  // Format badge
+  document.getElementById('player-format-badge').textContent = `${lesson.format} · ${lesson.duration}`;
+
+  // Hook
+  document.getElementById('hook-emoji').textContent   = lesson.hook.emoji;
+  document.getElementById('hook-heading').textContent = lesson.hook.heading;
+  document.getElementById('hook-fact').textContent    = lesson.hook.fact;
+
+  // Core cards — render by type
+  const container = document.getElementById('core-cards-container');
+  container.innerHTML = '';
+  lesson.cards.forEach((card, i) => {
+    const el = renderCard(card);
+    if (i === 0) el.classList.add('core-card--active');
+    container.appendChild(el);
+  });
+
+  // Card dots
+  const dotsContainer = document.getElementById('card-dots');
+  dotsContainer.innerHTML = '';
+  lesson.cards.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'card-dot' + (i === 0 ? ' card-dot--active' : '');
+    dot.id = `card-dot-${i}`;
+    dotsContainer.appendChild(dot);
+  });
+
+  updateCardUI(lesson, 0);
+
+  // Quiz
+  document.getElementById('quiz-question').textContent   = lesson.quiz.question;
+  document.getElementById('quiz-feedback').textContent   = '';
+  document.getElementById('quiz-continue-btn').style.display = 'none';
+  quizAnswered = false;
+
+  const optionsContainer = document.getElementById('quiz-options');
+  optionsContainer.innerHTML = '';
+  lesson.quiz.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className  = 'quiz-option';
+    btn.textContent = opt.text;
+    btn.onclick = () => submitQuiz(btn, opt.correct, lesson.quiz.feedback);
+    optionsContainer.appendChild(btn);
+  });
+
+  // Anchor
+  document.getElementById('anchor-emoji').textContent    = lesson.anchor.emoji;
+  document.getElementById('anchor-takeaway').textContent = lesson.anchor.takeaway;
+  document.getElementById('anchor-action').textContent   = lesson.anchor.action;
+
+  // Reset progress bar
+  document.getElementById('player-progress-fill').style.width = '0%';
+}
+
+
+// ============================================================
+// CARD RENDERERS — dispatches by card.type
+// ============================================================
+
+function renderCard(card) {
+  switch (card.type) {
+    case 'video':       return renderVideoCard(card);
+    case 'infographic': return renderInfographicCard(card);
+    case 'checklist':   return renderChecklistCard(card);
+    default:            return renderTextCard(card);
+  }
+}
+
+function renderTextCard(card) {
+  const div = document.createElement('div');
+  div.className = 'core-card core-card--text';
+  div.innerHTML = `
+    <div class="core-card__emoji">${card.emoji}</div>
+    <p class="core-card__text">${card.text}</p>
+  `;
+  return div;
+}
+
+function renderVideoCard(card) {
+  const div = document.createElement('div');
+  div.className = 'core-card core-card--video';
+  div.setAttribute('role', 'button');
+  div.setAttribute('tabindex', '0');
+  div.setAttribute('aria-label', `Watch video: ${card.title}`);
+
+  div.innerHTML = `
+    <div class="vc-thumb" style="background:${card.gradient || '#1a56a0'}">
+      <div class="vc-play" aria-hidden="true">▶</div>
+      <div class="vc-center-emoji" aria-hidden="true">${card.emoji}</div>
+      <span class="vc-duration">${card.duration}</span>
+    </div>
+    <div class="vc-meta">
+      <p class="vc-title">▶ ${card.title}</p>
+      <p class="vc-caption">${card.caption}</p>
+    </div>
+    <p class="vc-tap-hint">Tap to watch on YouTube →</p>
+  `;
+
+  const openVideo = () => {
+    if (card.videoUrl) window.open(card.videoUrl, '_blank', 'noopener');
+  };
+  div.onclick = openVideo;
+  div.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') openVideo(); };
+  return div;
+}
+
+function renderInfographicCard(card) {
+  const div = document.createElement('div');
+  div.className = 'core-card core-card--infographic';
+  div.innerHTML = `
+    <div class="infog-wrapper">${card.html}</div>
+    ${card.caption ? `<p class="core-card__caption">${card.caption}</p>` : ''}
+  `;
+  return div;
+}
+
+function renderChecklistCard(card) {
+  const itemsHtml = card.items.map((item, i) => `
+    <li class="cl-item" id="cli-${i}" onclick="toggleCheck(this)" role="checkbox" aria-checked="false" tabindex="0">
+      <span class="cl-box" aria-hidden="true">○</span>
+      <span class="cl-text">${item}</span>
+    </li>
+  `).join('');
+
+  const div = document.createElement('div');
+  div.className = 'core-card core-card--checklist';
+  div.innerHTML = `
+    <p class="cl-title">${card.title}</p>
+    <ul class="cl-list" role="group" aria-label="Safety checklist">${itemsHtml}</ul>
+    <p class="cl-hint">Tap each item to mark it checked ✓</p>
+  `;
+  return div;
+}
+
+// Called by checklist items
+function toggleCheck(el) {
+  const checked = el.classList.toggle('cl-item--checked');
+  el.setAttribute('aria-checked', checked ? 'true' : 'false');
+  el.querySelector('.cl-box').textContent = checked ? '✓' : '○';
+}
+
+
+// ============================================================
+// PLAYER STEP NAVIGATION
+// ============================================================
+
+function showStep(step) {
+  document.querySelectorAll('.player-sub').forEach(s => s.classList.remove('player-sub--active'));
+  document.getElementById('player-' + step).classList.add('player-sub--active');
+  document.getElementById('player-progress-fill').style.width = PROGRESS[step];
+}
+
+function nextStep() {
+  const activeEl  = document.querySelector('.player-sub--active');
+  const currentId = activeEl ? activeEl.id.replace('player-', '') : 'hook';
+  const idx       = STEPS.indexOf(currentId);
+  if (idx >= 0 && idx < STEPS.length - 1) {
+    const next = STEPS[idx + 1];
+    if (next === 'core') {
+      cardIndex = 0;
+      updateCardUI(COURSES[currentCourse].chapters[currentLesson], 0);
+    }
+    showStep(next);
+  }
+}
+
+
+// ============================================================
+// CORE CARDS — navigation
+// ============================================================
+
+function updateCardUI(lesson, idx) {
+  const cards = document.querySelectorAll('.core-card');
+  cards.forEach((card, i) => card.classList.toggle('core-card--active', i === idx));
+
+  const dots = document.querySelectorAll('.card-dot');
+  dots.forEach((dot, i) => {
+    dot.className = 'card-dot';
+    if (i === idx)     dot.classList.add('card-dot--active');
+    else if (i < idx)  dot.classList.add('card-dot--done');
+  });
+
+  document.getElementById('card-counter-text').textContent =
+    `Card ${idx + 1} of ${lesson.cards.length}`;
+
+  const nextBtn = document.getElementById('core-next-btn');
+  if (idx === lesson.cards.length - 1) {
+    nextBtn.textContent = 'Check your learning →';
+    nextBtn.onclick = () => showStep('retrieval');
+  } else {
+    nextBtn.textContent = 'Next card →';
+    nextBtn.onclick = nextCard;
+  }
+}
+
+function nextCard() {
+  const lesson = COURSES[currentCourse].chapters[currentLesson];
+  if (cardIndex < lesson.cards.length - 1) {
+    cardIndex++;
+    updateCardUI(lesson, cardIndex);
+  }
+}
+
+
+// ============================================================
+// RETRIEVAL QUIZ
+// ============================================================
+
+function submitQuiz(selectedBtn, isCorrect, feedback) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+
+  document.querySelectorAll('.quiz-option').forEach(btn => { btn.disabled = true; });
+  selectedBtn.classList.add(isCorrect ? 'quiz-option--correct' : 'quiz-option--wrong');
+  document.getElementById('quiz-feedback').textContent = isCorrect ? feedback.correct : feedback.wrong;
+
+  setTimeout(() => {
+    document.getElementById('quiz-continue-btn').style.display = 'flex';
+  }, 1200);
+}
+
+
+// ============================================================
+// COMPLETION SCREEN
+// ============================================================
+
+function showCompletion() {
+  const lesson = COURSES[currentCourse].chapters[currentLesson];
+  document.getElementById('done-outcome').textContent = 'You now know: ' + lesson.outcome;
+
+  const reviewDate = new Date();
+  reviewDate.setDate(reviewDate.getDate() + 7);
+  const formatted = reviewDate.toLocaleDateString('en-GB', {
+    weekday: 'long', day: 'numeric', month: 'long',
+  });
+  document.getElementById('done-review-date').textContent = formatted;
+  document.getElementById('done-back-btn').textContent =
+    playerSource === 'home' ? '← Back to home' : '← Back to course';
+
+  showScreen('done');
 }
 
 
@@ -443,6 +939,7 @@ function updateCourseProgress() {
 // ============================================================
 
 document.addEventListener('DOMContentLoaded', () => {
+  buildCourseTabs();
   buildChapterList();
   updateCourseProgress();
   updateHomeCard();
