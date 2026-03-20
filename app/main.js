@@ -857,6 +857,23 @@ function nextStep() {
   }
 }
 
+/** Go back one step — retrieval "← Back to cards" and anchor "← Back to quiz" */
+function prevStep() {
+  const activeEl  = document.querySelector('.player-sub--active');
+  const currentId = activeEl ? activeEl.id.replace('player-', '') : 'hook';
+  const idx       = STEPS.indexOf(currentId);
+  if (idx > 0) {
+    const prev = STEPS[idx - 1];
+    if (prev === 'core') {
+      // Land on the last card so they can review from the end forward
+      const lesson = COURSES[currentCourse].chapters[currentLesson];
+      cardIndex = lesson.cards.length - 1;
+      updateCardUI(lesson, cardIndex);
+    }
+    showStep(prev);
+  }
+}
+
 
 // ============================================================
 // CORE CARDS — navigation
@@ -876,6 +893,17 @@ function updateCardUI(lesson, idx) {
   document.getElementById('card-counter-text').textContent =
     `Card ${idx + 1} of ${lesson.cards.length}`;
 
+  // Prev button — goes to previous card, or back to Hook on the first card
+  const prevBtn = document.getElementById('core-prev-btn');
+  if (idx === 0) {
+    prevBtn.textContent = '← Back to intro';
+    prevBtn.onclick = () => showStep('hook');
+  } else {
+    prevBtn.textContent = '← Previous';
+    prevBtn.onclick = prevCard;
+  }
+
+  // Next button — advances card or moves to retrieval on the last card
   const nextBtn = document.getElementById('core-next-btn');
   if (idx === lesson.cards.length - 1) {
     nextBtn.textContent = 'Check your learning →';

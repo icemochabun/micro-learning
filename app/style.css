@@ -631,6 +631,19 @@ body {
 .btn--seniors-outline:hover { background: var(--color-success-light); }
 
 /* ============================================================
+   PLAYER NAV ROW — side-by-side prev/next buttons
+   ============================================================ */
+.player-nav-row {
+  display: flex;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+.player-nav-row .btn--seniors-primary,
+.player-nav-row .btn--seniors-outline {
+  flex: 1;
+}
+
+/* ============================================================
    COURSE TABS — multi-course selector
    ============================================================ */
 .course-tabs {

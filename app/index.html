@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Guided Learning</title>
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="style.css?v=4" />
 </head>
 <body>
 <div class="phone-frame">
@@ -123,7 +123,10 @@
         <!-- Cards injected here by JS -->
         <div class="core-cards" id="core-cards-container"></div>
 
-        <button class="btn--seniors-primary" id="core-next-btn">Next card →</button>
+        <div class="player-nav-row">
+          <button class="btn--seniors-outline" id="core-prev-btn">← Back</button>
+          <button class="btn--seniors-primary" id="core-next-btn">Next card →</button>
+        </div>
       </div><!-- /player-core -->
 
 
@@ -145,6 +148,7 @@
           style="display:none"
           onclick="nextStep()"
         >Continue →</button>
+        <button class="btn--seniors-outline" onclick="prevStep()">← Back to cards</button>
       </div><!-- /player-retrieval -->
 
 
@@ -162,6 +166,7 @@
         </div>
 
         <button class="btn--seniors-primary" onclick="showCompletion()">Lesson complete! →</button>
+        <button class="btn--seniors-outline" onclick="prevStep()">← Back to quiz</button>
       </div><!-- /player-anchor -->
 
     </div><!-- /player-body -->
@@ -191,6 +196,6 @@
 
 </div><!-- /phone-frame -->
 
-<script src="main.js?v=3"></script>
+<script src="main.js?v=4"></script>
 </body>
 </html>
