@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Guided Learning</title>
-  <link rel="stylesheet" href="style.css?v=4" />
+  <link rel="stylesheet" href="style.css?v=5" />
 </head>
 <body>
 <div class="phone-frame">
@@ -35,6 +35,7 @@
         <button class="tile" onclick="showScreen('course')">
           <span class="tile__icon">📖</span>
           <span class="tile__label">Guided Learning</span>
+          <span class="tile__sub" id="tile-course-count">3 courses</span>
         </button>
         <button class="tile tile--muted" title="Audio Book — coming soon">
           <span class="tile__icon">🎧</span>
@@ -56,6 +57,7 @@
     </header>
 
     <!-- Course tabs (injected by JS) -->
+    <p class="course-tabs-label">Choose a course</p>
     <div id="course-tabs" class="course-tabs" role="tablist" aria-label="Select a course"></div>
 
     <div class="screen-body">
@@ -196,6 +198,6 @@
 
 </div><!-- /phone-frame -->
 
-<script src="main.js?v=4"></script>
+<script src="main.js?v=5"></script>
 </body>
 </html>

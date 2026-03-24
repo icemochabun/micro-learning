@@ -133,9 +133,92 @@ const INFOG_BALANCED_PLATE = `
 </div>`;
 
 
+const INFOG_LONELINESS_STATS = `
+<div class="infog">
+  <p class="infog__heading">💙 Loneliness by the Numbers</p>
+  <div class="infog__stats">
+    <div class="infog__stat-item">
+      <span class="infog__stat-text">1 in 3 seniors reports feeling lonely regularly</span>
+      <div class="infog__stat-bar-wrap"><div class="infog__stat-bar-fill" style="width:33%;background:#3b82f6"></div></div>
+    </div>
+    <div class="infog__stat-item">
+      <span class="infog__stat-text">50% higher risk of dementia linked to chronic loneliness</span>
+      <div class="infog__stat-bar-wrap"><div class="infog__stat-bar-fill" style="width:50%;background:#8b5cf6"></div></div>
+    </div>
+    <div class="infog__stat-item">
+      <span class="infog__stat-text">40% of seniors have no meaningful weekly social contact</span>
+      <div class="infog__stat-bar-wrap"><div class="infog__stat-bar-fill" style="width:40%;background:#ef4444"></div></div>
+    </div>
+    <div class="infog__stat-item">
+      <span class="infog__stat-text">29% higher risk of heart disease from social isolation</span>
+      <div class="infog__stat-bar-wrap"><div class="infog__stat-bar-fill" style="width:29%;background:#f59e0b"></div></div>
+    </div>
+  </div>
+  <p class="infog__footer">💡 Loneliness has the same health impact as smoking 15 cigarettes a day</p>
+</div>`;
+
+const INFOG_DEPRESSION_SIGNS = `
+<div class="infog">
+  <p class="infog__heading">🌱 Early Signs of Depression in Seniors</p>
+  <div class="infog__grid">
+    <div class="infog__grid-item infog__grid-item--red">
+      <span>😔</span><span>Persistent low mood for 2+ weeks</span>
+    </div>
+    <div class="infog__grid-item infog__grid-item--orange">
+      <span>🛏️</span><span>Sleep much more or less than usual</span>
+    </div>
+    <div class="infog__grid-item infog__grid-item--yellow">
+      <span>🍽️</span><span>Loss of appetite or interest in food</span>
+    </div>
+    <div class="infog__grid-item infog__grid-item--purple">
+      <span>🤝</span><span>Withdrawal from social activities</span>
+    </div>
+    <div class="infog__grid-item infog__grid-item--orange">
+      <span>😴</span><span>Fatigue and loss of motivation</span>
+    </div>
+    <div class="infog__grid-item infog__grid-item--red">
+      <span>💬</span><span>Feeling hopeless, worthless, or a burden</span>
+    </div>
+  </div>
+  <p class="infog__footer">⚠️ Three or more signs lasting 2+ weeks — document and report to your supervisor</p>
+</div>`;
+
+const INFOG_DIGNITY_TIPS = `
+<div class="infog">
+  <p class="infog__heading">🤝 5 Principles of Dignified Communication</p>
+  <div class="infog__rights">
+    <div class="infog__right">
+      <span class="infog__rnum" style="background:#2e8b5a">1</span>
+      <div><b class="infog__rlabel">Use their name</b>
+      <span class="infog__rsub"> — Every greeting uses their preferred name, not "dear" or "sweetie"</span></div>
+    </div>
+    <div class="infog__right">
+      <span class="infog__rnum" style="background:#2e8b5a">2</span>
+      <div><b class="infog__rlabel">Ask before touching</b>
+      <span class="infog__rsub"> — Announce every action: "I'm going to help you sit up now"</span></div>
+    </div>
+    <div class="infog__right">
+      <span class="infog__rnum" style="background:#2e8b5a">3</span>
+      <div><b class="infog__rlabel">Speak at eye level</b>
+      <span class="infog__rsub"> — Kneel or sit — never talk down to someone in a bed or chair</span></div>
+    </div>
+    <div class="infog__right">
+      <span class="infog__rnum" style="background:#2e8b5a">4</span>
+      <div><b class="infog__rlabel">Wait 10 seconds</b>
+      <span class="infog__rsub"> — Silence is processing time — resist the urge to fill it</span></div>
+    </div>
+    <div class="infog__right">
+      <span class="infog__rnum" style="background:#2e8b5a">5</span>
+      <div><b class="infog__rlabel">Avoid elderspeak</b>
+      <span class="infog__rsub"> — No "sweetie", "good boy/girl" — treat adults as adults, always</span></div>
+    </div>
+  </div>
+</div>`;
+
+
 // ============================================================
 // COURSE DATA
-// Two courses, 8 chapters total, across 4 card types:
+// Three courses, 12 chapters, across 5 card types:
 //   text · video · infographic · checklist
 // ============================================================
 
@@ -363,6 +446,47 @@ const COURSES = [
         outcome: 'Identifying and removing environmental hazards is the most effective way to prevent falls.',
       },
 
+      // Chapter 6 — INFOGRAPHIC card
+      {
+        id: 'ch6',
+        title: 'Communicating with Dignity',
+        format: 'Infographic',
+        duration: '4 min',
+        objective: 'Apply 5 dignity principles in every interaction with the seniors you care for',
+        completed: false,
+        hook: {
+          emoji: '🤝',
+          heading: 'Every word shapes how someone feels about themselves',
+          fact: 'Seniors who feel respected report 40% less anxiety and communicate more openly about their health needs.',
+        },
+        cards: [
+          {
+            type: 'infographic',
+            html: INFOG_DIGNITY_TIPS,
+            caption: 'These 5 principles apply to every interaction, every single time.',
+          },
+          { type: 'text', emoji: '🚫', text: '"Elderspeak" — using words like "sweetie" or "good girl" — reduces dignity and can worsen cognitive decline.' },
+          { type: 'text', emoji: '⏳', text: 'Silence is not awkwardness — it is processing time. Give 10 seconds before repeating. Rushing someone damages trust.' },
+        ],
+        quiz: {
+          question: 'Which habit best promotes dignity in every interaction?',
+          options: [
+            { text: 'Announcing your actions and using their preferred name', correct: true },
+            { text: 'Speaking loudly and using very simple words', correct: false },
+          ],
+          feedback: {
+            correct: '✅ Correct! Announcing actions and using names are the two highest-impact dignity behaviours.',
+            wrong: '❌ Volume and simplicity don\'t equal dignity. Asking before touching and using their name does.',
+          },
+        },
+        anchor: {
+          emoji: '🤝',
+          takeaway: 'Use their name. Ask before touching. Wait for the answer.',
+          action: 'In your next interaction, announce every action before you do it: "I\'m going to help you sit up now."',
+        },
+        outcome: 'Asking before touching and using someone\'s preferred name are the highest-impact dignity behaviours.',
+      },
+
     ], // end course 1 chapters
   },
 
@@ -506,6 +630,157 @@ const COURSES = [
     ], // end course 2 chapters
   },
 
+  // ─────────────────────────────────────────────────────────
+  // COURSE 3: Emotional Wellbeing & Communication (3 chapters)
+  // ─────────────────────────────────────────────────────────
+  {
+    id: 'course-wellbeing',
+    title: 'Emotional Wellbeing',
+    icon: '💙',
+    description: 'Recognise emotional needs and communicate with empathy and dignity',
+    chapters: [
+
+      // Chapter 1 — INFOGRAPHIC card
+      {
+        id: 'ew1',
+        title: 'Understanding Loneliness in Seniors',
+        format: 'Infographic',
+        duration: '4 min',
+        objective: 'Recognise how loneliness affects seniors and how your daily interactions make a difference',
+        completed: false,
+        hook: {
+          emoji: '💙',
+          heading: 'Loneliness is as harmful as smoking',
+          fact: 'Chronic loneliness increases dementia risk by 50% and has the same health impact as smoking 15 cigarettes a day.',
+        },
+        cards: [
+          {
+            type: 'infographic',
+            html: INFOG_LONELINESS_STATS,
+            caption: 'These statistics reflect seniors in residential and home care settings.',
+          },
+          { type: 'text', emoji: '👥', text: 'Social connection is not a nice-to-have — it is a health need. For many isolated seniors, caregivers are their primary human contact.' },
+          { type: 'text', emoji: '💡', text: 'Even brief, warm interactions — a shared memory, a compliment, a moment of genuine eye contact — have measurable benefits for wellbeing.' },
+        ],
+        quiz: {
+          question: 'How does chronic loneliness compare to other well-known health risks?',
+          options: [
+            { text: 'It has the same health impact as smoking 15 cigarettes daily', correct: true },
+            { text: 'It mainly causes short-term sadness with no lasting health effects', correct: false },
+          ],
+          feedback: {
+            correct: '✅ Correct! Loneliness is a serious health risk — intentional connection is part of your care role.',
+            wrong: '❌ Chronic loneliness has profound physical effects, including a 50% higher risk of dementia and heart disease.',
+          },
+        },
+        anchor: {
+          emoji: '💙',
+          takeaway: 'Social connection is a health need — treat it as part of your care plan.',
+          action: 'Make genuine eye contact and use one person\'s name meaningfully today.',
+        },
+        outcome: 'Loneliness increases dementia risk by 50% — intentional daily connection is part of your care role.',
+      },
+
+      // Chapter 2 — VIDEO card
+      {
+        id: 'ew2',
+        title: 'How to Start a Caring Conversation',
+        format: 'Video',
+        duration: '4 min',
+        objective: 'Use open questions and active listening to create meaningful connection in every interaction',
+        completed: false,
+        hook: {
+          emoji: '🗣️',
+          heading: 'A caring conversation can transform someone\'s day',
+          fact: 'Most seniors in residential care have fewer than 10 minutes of meaningful conversation per day.',
+        },
+        cards: [
+          {
+            type: 'video',
+            emoji: '🗣️',
+            title: 'Meaningful Conversations with Seniors',
+            caption: 'Open questions, active listening, and person-centred dialogue',
+            duration: '3:12',
+            gradient: 'linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%)',
+            videoUrl: 'https://www.youtube.com/results?search_query=meaningful+conversations+elderly+seniors+active+listening+caregiver',
+          },
+          { type: 'text', emoji: '❓', text: 'Open questions invite stories. "What was your favourite job?" opens a conversation. "Are you comfortable?" closes one.' },
+          { type: 'text', emoji: '👂', text: 'Active listening means putting down what you are doing, making eye contact, and not finishing their sentences for them.' },
+        ],
+        quiz: {
+          question: 'Which question is more likely to start a meaningful conversation?',
+          options: [
+            { text: '"What did you enjoy most about your working life?"', correct: true },
+            { text: '"Did you sleep well last night?"', correct: false },
+          ],
+          feedback: {
+            correct: '✅ Correct! Open, life-story questions create real connection — closed questions get one-word answers.',
+            wrong: '❌ "Did you sleep well?" is a closed question with a yes/no answer. Open questions invite stories and memories.',
+          },
+        },
+        anchor: {
+          emoji: '🗣️',
+          takeaway: 'One open question is worth ten closed ones.',
+          action: 'Ask one open, life-story question in your next interaction — then listen without interrupting for a full minute.',
+        },
+        outcome: 'Open questions and active listening create meaningful connection in less than 5 minutes.',
+      },
+
+      // Chapter 3 — CHECKLIST + INFOGRAPHIC
+      {
+        id: 'ew3',
+        title: 'Recognising Early Signs of Depression',
+        format: 'Checklist',
+        duration: '5 min',
+        objective: 'Identify early signs of depression in seniors and know when and how to escalate',
+        completed: false,
+        hook: {
+          emoji: '🌱',
+          heading: 'Depression is common in seniors — and often missed',
+          fact: 'Nearly 1 in 5 seniors experiences depression, yet over 60% of cases go unrecognised and untreated.',
+        },
+        cards: [
+          {
+            type: 'infographic',
+            html: INFOG_DEPRESSION_SIGNS,
+            caption: 'Three or more of these signs lasting 2+ weeks — document and report to your supervisor.',
+          },
+          {
+            type: 'checklist',
+            title: '🌱 Signs to Watch For — tap each one you have observed',
+            items: [
+              'Persistent low mood or tearfulness for 2 or more weeks',
+              'Loss of interest in hobbies or activities they previously enjoyed',
+              'Increased social withdrawal — avoiding mealtimes or group activities',
+              'Significant changes in sleep (sleeping much more or much less than usual)',
+              'Unexplained weight loss or persistent loss of appetite',
+              'Talking about feeling hopeless, worthless, or a burden to others',
+            ],
+          },
+          { type: 'text', emoji: '🤝', text: 'Your observations are clinical information. If you notice these signs, document them in your handover and report to your supervisor the same day.' },
+        ],
+        quiz: {
+          question: 'How long should symptoms persist before you raise a concern?',
+          options: [
+            { text: '2 weeks or more of persistent low mood or withdrawal', correct: true },
+            { text: 'Only after the person explicitly asks for help themselves', correct: false },
+          ],
+          feedback: {
+            correct: '✅ Correct! Two weeks of persistent symptoms is the clinical threshold — do not wait for them to ask.',
+            wrong: '❌ Many seniors with depression will never ask for help. Two weeks of observed symptoms is enough to act.',
+          },
+        },
+        anchor: {
+          emoji: '🌱',
+          takeaway: 'Depression is not a normal part of ageing — your observation can prompt life-changing treatment.',
+          action: 'Document any mood or behaviour changes you noticed today in your handover notes.',
+        },
+        outcome: 'Persistent low mood for 2+ weeks warrants documentation and escalation — your observation matters.',
+      },
+
+    ], // end course 3 chapters
+  },
+
 ]; // end COURSES
 
 
@@ -598,7 +873,7 @@ function buildCourseTabs() {
     btn.className = 'course-tab' + (i === currentCourse ? ' course-tab--active' : '');
     btn.setAttribute('role', 'tab');
     btn.setAttribute('aria-selected', i === currentCourse ? 'true' : 'false');
-    btn.innerHTML = `${course.icon}&thinsp;${course.title}`;
+    btn.innerHTML = `<span class="course-tab__icon">${course.icon}</span><span class="course-tab__title">${course.title}</span><span class="course-tab__count">${course.chapters.length}</span>`;
     btn.onclick = () => selectCourse(i);
     container.appendChild(btn);
   });
@@ -922,6 +1197,14 @@ function nextCard() {
   }
 }
 
+function prevCard() {
+  const lesson = COURSES[currentCourse].chapters[currentLesson];
+  if (cardIndex > 0) {
+    cardIndex--;
+    updateCardUI(lesson, cardIndex);
+  }
+}
+
 
 // ============================================================
 // RETRIEVAL QUIZ
@@ -971,5 +1254,8 @@ document.addEventListener('DOMContentLoaded', () => {
   buildChapterList();
   updateCourseProgress();
   updateHomeCard();
+  // Show course count on home tile
+  const sub = document.getElementById('tile-course-count');
+  if (sub) sub.textContent = `${COURSES.length} courses available`;
   showScreen('home');
 });

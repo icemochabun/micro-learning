@@ -163,6 +163,12 @@ body {
   color: var(--color-text);
   line-height: 1.3;
 }
+.tile__sub {
+  font-size: var(--font-size-sm);
+  color: var(--color-seniors);
+  font-weight: var(--font-weight-medium);
+  margin-top: 2px;
+}
 
 /* ============================================================
    SCREEN 2 — COURSE LIST
@@ -646,37 +652,69 @@ body {
 /* ============================================================
    COURSE TABS — multi-course selector
    ============================================================ */
+.course-tabs-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: var(--space-4) var(--space-5) var(--space-2);
+  flex-shrink: 0;
+}
+
 .course-tabs {
   display: flex;
-  gap: 0;
+  gap: var(--space-3);
   overflow-x: auto;
   background: var(--color-white);
   border-bottom: 2px solid var(--color-border);
+  padding: 0 var(--space-5) var(--space-4);
   scrollbar-width: none;
   flex-shrink: 0;
 }
 .course-tabs::-webkit-scrollbar { display: none; }
 
 .course-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
   flex: 1;
-  min-width: 120px;
-  min-height: 52px;
+  min-width: 100px;
+  min-height: 64px;
   padding: var(--space-3) var(--space-4);
-  background: none;
-  border: none;
-  border-bottom: 3px solid transparent;
+  background: var(--color-light-bg);
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
   font-family: var(--font-family);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-muted);
   cursor: pointer;
-  white-space: nowrap;
-  transition: color var(--transition-fast), border-color var(--transition-fast);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
 }
-.course-tab:hover { color: var(--color-seniors); }
+.course-tab:hover { background: var(--color-success-light); border-color: var(--color-seniors); }
 .course-tab--active {
-  color: var(--color-seniors);
-  border-bottom-color: var(--color-seniors);
+  background: var(--color-success-light);
+  border-color: var(--color-seniors);
+}
+.course-tab__icon { font-size: 1.3rem; line-height: 1; }
+.course-tab__title {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  line-height: 1.2;
+  text-align: center;
+}
+.course-tab--active .course-tab__title { color: var(--color-seniors); }
+.course-tab__count {
+  font-size: 0.65rem;
+  background: var(--color-border);
+  color: var(--color-text-muted);
+  border-radius: 20px;
+  padding: 1px 7px;
+  font-weight: var(--font-weight-bold);
+}
+.course-tab--active .course-tab__count {
+  background: var(--color-seniors);
+  color: #fff;
 }
 
 /* Chapter objective line */
@@ -982,6 +1020,76 @@ body {
   padding: var(--space-3) var(--space-4);
   text-align: center;
 }
+
+/* ============================================================
+   INFOGRAPHIC — STAT BARS (loneliness stats, etc.)
+   ============================================================ */
+.infog__stats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+}
+.infog__stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.infog__stat-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.4;
+}
+.infog__stat-bar-wrap {
+  height: 10px;
+  background: var(--color-border);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.infog__stat-bar-fill {
+  height: 100%;
+  border-radius: 5px;
+}
+.infog__footer {
+  margin-top: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: #eff6ff;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  color: #1d4ed8;
+  text-align: center;
+  font-weight: var(--font-weight-medium);
+  line-height: 1.4;
+}
+
+/* ============================================================
+   INFOGRAPHIC — GRID (depression signs, etc.)
+   ============================================================ */
+.infog__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+.infog__grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-2);
+  border-radius: 10px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  line-height: 1.4;
+}
+.infog__grid-item span:first-child { font-size: 1.4rem; }
+.infog__grid-item--red    { background: #fff5f5; }
+.infog__grid-item--orange { background: #fff8f0; }
+.infog__grid-item--yellow { background: #fffbeb; }
+.infog__grid-item--purple { background: #faf5ff; }
 
 /* ============================================================
    CHECKLIST CARD
